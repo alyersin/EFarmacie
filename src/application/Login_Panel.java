@@ -9,45 +9,45 @@ import java.util.List;
 public class Login_Panel extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
-    JButton b1;
-    JLabel userLabel, passLabel;
-    final JTextField textField_1;
-    final JPasswordField textField_2;
-    List<String> listaUsers;
-    List<String> listaPasswords;
+    JButton b1; // Buton pentru autentificare
+    JLabel userLabel, passLabel; // Etichete pentru campurile de text
+    final JTextField textField_1; // Camp text pentru utilizator
+    final JPasswordField textField_2; // Camp text pentru parola
+    List<String> listaUsers; // Lista pentru username-uri
+    List<String> listaPasswords; // Lista pentru parole
 
     Login_Panel() {
         // Incarca conturile din fisier
-        loadAccounts("accounts.txt");
+        loadAccounts("accounts.txt"); // Apelare metoda pentru incarcarea conturilor din fisier
 
-        getContentPane().setLayout(null);  // Setam layout (absolute) in swing pentru a folosi x, y si w, h
+        getContentPane().setLayout(null);  // Setare layout nul pentru utilizarea coordonatelor absolute
 
-        userLabel = new JLabel("User");
-        userLabel.setBounds(100, 100, 80, 30);
-        textField_1 = new JTextField(15);
-        textField_1.setBounds(200, 100, 200, 30);
+        userLabel = new JLabel("User"); // Creare eticheta pentru utilizator
+        userLabel.setBounds(100, 100, 80, 30); // Setare pozitie si dimensiune eticheta
+        textField_1 = new JTextField(15); // Creare camp text pentru utilizator cu lungime maxima de 15 caractere
+        textField_1.setBounds(200, 100, 200, 30); // Setare pozitie si dimensiune camp text
 
-        passLabel = new JLabel("Parola");
-        passLabel.setBounds(100, 150, 80, 30);
-        textField_2 = new JPasswordField(15);
-        textField_2.setBounds(200, 150, 200, 30);
+        passLabel = new JLabel("Parola"); // Creare eticheta pentru parola
+        passLabel.setBounds(100, 150, 80, 30); // Setare pozitie si dimensiune eticheta
+        textField_2 = new JPasswordField(15); // Creare camp text pentru parola cu lungime maxima de 15 caractere
+        textField_2.setBounds(200, 150, 200, 30); // Setare pozitie si dimensiune camp text
 
-        b1 = new JButton("Login");
-        b1.setBounds(200, 200, 100, 30);
+        b1 = new JButton("Login"); // Creare buton pentru autentificare
+        b1.setBounds(200, 200, 100, 30); // Setare pozitie si dimensiune buton
 
-        getContentPane().add(userLabel);
-        getContentPane().add(textField_1);
-        getContentPane().add(passLabel);
-        getContentPane().add(textField_2);
-        getContentPane().add(b1);
+        getContentPane().add(userLabel); // Adaugare eticheta utilizator in panou
+        getContentPane().add(textField_1); // Adaugare camp text utilizator in panou
+        getContentPane().add(passLabel); // Adaugare eticheta parola in panou
+        getContentPane().add(textField_2); // Adaugare camp text parola in panou
+        getContentPane().add(b1); // Adaugare buton in panou
 
-        b1.addActionListener(this);
-        setTitle("LOGIN");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        b1.addActionListener(this); // Adaugare ascultator de actiuni pentru buton
+        setTitle("LOGIN"); // Setare titlu fereastra
+        setSize(400, 300); // Setare dimensiune fereastra
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Setare actiune inchidere fereastra
 
-        EnterKeyListener(textField_1);
-        EnterKeyListener(textField_2);
+        EnterKeyListener(textField_1); // Adaugare listener pentru tasta Enter la campul text utilizator
+        EnterKeyListener(textField_2); // Adaugare listener pentru tasta Enter la campul text parola
     }
 
     // Listener pentru tasta Enter
@@ -55,7 +55,7 @@ public class Login_Panel extends JFrame implements ActionListener {
         comp.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    b1.doClick();
+                    b1.doClick(); // Simuleaza un click pe butonul de autentificare
                 }
             }
         });
@@ -63,33 +63,33 @@ public class Login_Panel extends JFrame implements ActionListener {
 
     // Gestionare autentificare
     public void actionPerformed(ActionEvent ae) {
-        String user = textField_1.getText();
-        String pass = new String(textField_2.getPassword());
+        String user = textField_1.getText(); // Obtine textul din campul utilizator
+        String pass = new String(textField_2.getPassword()); // Obtine textul din campul parola
 
-        if (autentificare(user, pass)) {
-            MainFrame mf = new MainFrame();
-            mf.setVisible(true);
-            setVisible(false);
+        if (autentificare(user, pass)) { // Verifica autentificarea
+            MainFrame mf = new MainFrame(); // Creare instanta MainFrame
+            mf.setVisible(true); // Setare vizibilitate fereastra principala
+            setVisible(false); // Ascundere fereastra de login
         } else {
-            showError("user / parola incorecte");
+            showError("user / parola incorecte"); // Afisare mesaj de eroare pentru autentificare esuata
         }
     }
 
     // Incarca conturile din accounts.txt
     private void loadAccounts(String filePath) {
-        listaUsers = new ArrayList<>(); // Initializare array pentru username-uri
-        listaPasswords = new ArrayList<>(); // Initializare array pentru parole
+        listaUsers = new ArrayList<>(); // Initializare lista pentru username-uri
+        listaPasswords = new ArrayList<>(); // Initializare lista pentru parole
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) { // Deschidere fisier pentru citire
-            String linie; // Declarare variabila unde vom stoca toate liniile citite din fiser
-            while ((linie = br.readLine()) != null) {  // Citire din fisier si transformare in String pana cand = null (nu mai sunt linii cu text)
-                String[] temp = linie.split(":"); // Stocare in temp array fara delimitator ":"
-                if (temp.length == 2) {  // Verificare daca sunt 2 elemente
+            String linie; // Declarare variabila pentru stocarea liniilor citite din fisier
+            while ((linie = br.readLine()) != null) { // Citire linii din fisier pana la sfarsit
+                String[] temp = linie.split(":"); // Impartire linie in username si parola folosind ":" ca delimitator
+                if (temp.length == 2) { // Verificare daca linia contine exact 2 elemente
                     listaUsers.add(temp[0]); // Adaugare username in lista
                     listaPasswords.add(temp[1]); // Adaugare parola in lista
                 }
             }
         } catch (IOException e) {
-            showError("Eroare la incarcare: " + e.getMessage());
+            showError("Eroare la incarcare: " + e.getMessage()); // Afisare mesaj de eroare daca apare o exceptie la citirea fisierului
         }
     }
 
@@ -97,14 +97,14 @@ public class Login_Panel extends JFrame implements ActionListener {
     private boolean autentificare(String username, String password) {
         for (int i = 0; i < listaUsers.size(); i++) { // Iterare prin lista de username-uri
             if (listaUsers.get(i).equals(username) && listaPasswords.get(i).equals(password)) { // Verifica daca username-ul si parola se potrivesc
-                return true;
+                return true; // Returneaza true daca autentificarea este reusita
             }
         }
-        return false; // Daca nu gaseste nicio potrivire, returneaza false
+        return false; // Returneaza false daca nu gaseste nicio potrivire
     }
 
     // Afiseaza mesaj de eroare
     private void showError(String message) {
-        JOptionPane.showMessageDialog(this, message);
+        JOptionPane.showMessageDialog(this, message); // Afisare mesaj de eroare intr-o fereastra de dialog
     }
 }

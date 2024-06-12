@@ -4,74 +4,74 @@ import javax.swing.*;
 import java.io.*;
 
 public class Medic_Panel extends JPanel {
-
-	private static final long serialVersionUID = 1L;
-	private JTextField nrRetetaField, numeMedicField, prenumeMedicField, codMedicField;
-
-    public Medic_Panel(MainFrame frame) {
-        setLayout(null);
-        setupComponents(frame);
+    private static final long serialVersionUID = 1L;
+    private JTextField nrRetetaField, numeMedicField, prenumeMedicField, codMedicField; // Campuri de text pentru detalii reteta si medic
+    private MainFrame frame; // Referinta la obiectul MainFrame
+    public Medic_Panel(MainFrame frame, Cos_Cumparaturi cosCumparaturi) {
+        this.frame = frame; // Initializare referinta frame
+        setLayout(null); // Setare layout nul
+        setupComponents(); // Configurarea componentelor
     }
 
-    private void setupComponents(MainFrame frame) {
-        JLabel nrRetetaLabel = createLabel("Nr. reteta:", 20, 20);
-        nrRetetaField = createTextField(120, 20);
+    private void setupComponents() {
+        JLabel nrRetetaLabel = createLabel("Nr. reteta:", 20, 20); // Creare eticheta pentru nr. reteta
+        nrRetetaField = createTextField(120, 20); // Creare camp text pentru nr. reteta
 
-        JLabel numeLabel = createLabel("Nume:", 20, 60);
-        numeMedicField = createTextField(120, 60);
+        JLabel numeLabel = createLabel("Nume:", 20, 60); // Creare eticheta pentru nume
+        numeMedicField = createTextField(120, 60); // Creare camp text pentru nume
 
-        JLabel prenumeLabel = createLabel("Prenume:", 20, 100);
-        prenumeMedicField = createTextField(120, 100);
+        JLabel prenumeLabel = createLabel("Prenume:", 20, 100); // Creare eticheta pentru prenume
+        prenumeMedicField = createTextField(120, 100); // Creare camp text pentru prenume
 
-        JLabel codMedicLabel = createLabel("Cod Medic:", 20, 140);
-        codMedicField = createTextField(120, 140);
+        JLabel codMedicLabel = createLabel("Cod Medic:", 20, 140); // Creare eticheta pentru cod medic
+        codMedicField = createTextField(120, 140); // Creare camp text pentru cod medic
 
-        JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(120, 180, 100, 30);
-        submitButton.addActionListener(e -> saveInputsToFile(frame));
+        JButton submitButton = new JButton("Submit"); // Creare buton pentru submit
+        submitButton.setBounds(120, 180, 100, 30); // Setare pozitie si dimensiune buton
+        submitButton.addActionListener(e -> saveInputsToFile()); // Adaugare ascultator pentru buton
 
-        add(nrRetetaLabel);
-        add(nrRetetaField);
-        add(numeLabel);
-        add(numeMedicField);
-        add(prenumeLabel);
-        add(prenumeMedicField);
-        add(codMedicLabel);
-        add(codMedicField);
-        add(submitButton);
+        add(nrRetetaLabel); // Adaugare eticheta nr. reteta in panou
+        add(nrRetetaField); // Adaugare camp text nr. reteta in panou
+        add(numeLabel); // Adaugare eticheta nume in panou
+        add(numeMedicField); // Adaugare camp text nume in panou
+        add(prenumeLabel); // Adaugare eticheta prenume in panou
+        add(prenumeMedicField); // Adaugare camp text prenume in panou
+        add(codMedicLabel); // Adaugare eticheta cod medic in panou
+        add(codMedicField); // Adaugare camp text cod medic in panou
+        add(submitButton); // Adaugare buton in panou
     }
 
     private JLabel createLabel(String text, int x, int y) {
-        JLabel label = new JLabel(text);
-        label.setBounds(x, y, 100, 30);
-        return label;
+        JLabel label = new JLabel(text); // Creare eticheta cu textul specificat
+        label.setBounds(x, y, 100, 30); // Setare pozitie si dimensiune eticheta
+        return label; // Returnare eticheta
     }
 
     private JTextField createTextField(int x, int y) {
-        JTextField textField = new JTextField(15);
-        textField.setBounds(x, y, 200, 30);
-        return textField;
+        JTextField textField = new JTextField(15); // Creare camp text cu lungime maxima de 15 caractere
+        textField.setBounds(x, y, 200, 30); // Setare pozitie si dimensiune camp text
+        return textField; // Returnare camp text
     }
 
-    private void saveInputsToFile(MainFrame frame) {
-        String nrReteta = nrRetetaField.getText();
-        String nume = numeMedicField.getText();
-        String prenume = prenumeMedicField.getText();
-        String codMedic = codMedicField.getText();
+    private void saveInputsToFile() {
+        String nrReteta = nrRetetaField.getText(); // Obtine textul din campul nr. reteta
+        String nume = numeMedicField.getText(); // Obtine textul din campul nume
+        String prenume = prenumeMedicField.getText(); // Obtine textul din campul prenume
+        String codMedic = codMedicField.getText(); // Obtine textul din campul cod medic
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("retete.txt", true))) {
-            writer.write(nrReteta + ":" + nume + ":" + prenume + ":" + codMedic);
-            writer.newLine();
-            frame.showMessage("Reteta salvata cu succes.");
-            clearTextFields(nrRetetaField, numeMedicField, prenumeMedicField, codMedicField);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("retete.txt", true))) { // Deschidere fisier pentru scriere in mod append
+            writer.write(nrReteta + ":" + nume + ":" + prenume + ":" + codMedic); // Scriere detalii reteta in fisier
+            writer.newLine(); // Linie noua
+            frame.showMessage("Reteta salvata cu succes."); // Afisare mesaj de succes
+            clearTextFields(nrRetetaField, numeMedicField, prenumeMedicField, codMedicField); // Stergere text din campuri
         } catch (IOException e) {
-            frame.showError("Eroare la salvarea retetei: " + e.getMessage());
+            frame.showError("Eroare la salvarea retetei: " + e.getMessage()); // Afisare mesaj de eroare daca apare o exceptie la scrierea fisierului
         }
     }
 
     private void clearTextFields(JTextField... fields) {
         for (JTextField field : fields) {
-            field.setText("");
+            field.setText(""); // Stergere text din fiecare camp
         }
     }
 }
