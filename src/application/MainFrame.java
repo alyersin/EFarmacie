@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
-    private DefaultTableModel model; // Modelul tabelului pentru stoc
+    private DefaultTableModel modelTabelDefault; // Modelul tabelului pentru stoc
     private JTable tabelStoc; // Tabelul pentru stoc
     private List<String[]> cosProduse; // Lista de produse in cos
     private Search_Panel searchPanel; // Panoul de cautare
@@ -27,32 +27,32 @@ public class MainFrame extends JFrame {
         cosCumparaturi = new Cos_Cumparaturi(cosProduse); // Initializare obiect Cos_Cumparaturi
 
         configurareTabel(); // Configurare tabel pentru stoc
-        initializePanels(); // Initializare panouri
-        new Stoc_Farmacie().incarcaStoc(model); // Incarcare stoc in tabel
+        initializarePanels(); // Initializare panouri
+        new Stoc_Farmacie().incarcaStoc(modelTabelDefault); // Incarcare stoc in tabel
         new Table_Listeners(this).addListeners(); // Adaugare ascultatori pentru evenimente de tabel
-        createpopupStergeProdus(); // Creare popup pentru stergerea produsului
+        createPopupSterge(); // Creare popup pentru stergerea produsului
     }
 
     private void configurareTabel() {
-        model = new DefaultTableModel() {
+        modelTabelDefault = new DefaultTableModel() {
             private static final long serialVersionUID = 1L;
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Setare celulele tabelului ca needitabile
             }
         };
-        model.addColumn("Nume"); // Adaugare coloana "Nume"
-        model.addColumn("Compozitie"); // Adaugare coloana "Compozitie"
-        model.addColumn("Indicatii"); // Adaugare coloana "Indicatii"
-        model.addColumn("Contraindicatii"); // Adaugare coloana "Contraindicatii"
-        model.addColumn("Mod de administrare"); // Adaugare coloana "Mod de administrare"
-        model.addColumn("Stoc"); // Adaugare coloana "Stoc"
-        model.addColumn("Pret"); // Adaugare coloana "Pret"
-        tabelStoc = new JTable(model); // Creare tabel cu modelul specificat
+        modelTabelDefault.addColumn("Nume"); // Adaugare coloana "Nume"
+        modelTabelDefault.addColumn("Compozitie"); // Adaugare coloana "Compozitie"
+        modelTabelDefault.addColumn("Indicatii"); // Adaugare coloana "Indicatii"
+        modelTabelDefault.addColumn("Contraindicatii"); // Adaugare coloana "Contraindicatii"
+        modelTabelDefault.addColumn("Mod de administrare"); // Adaugare coloana "Mod de administrare"
+        modelTabelDefault.addColumn("Stoc"); // Adaugare coloana "Stoc"
+        modelTabelDefault.addColumn("Pret"); // Adaugare coloana "Pret"
+        tabelStoc = new JTable(modelTabelDefault); // Creare tabel cu modelul specificat
         tabelStoc.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN); // Setare mod de redimensionare automata pentru ultima coloana
     }
 
-    private void initializePanels() {
+    private void initializarePanels() {
         searchPanel = new Search_Panel(this); // Creare panou de cautare
         sidePanel = new Medic_Panel(this, cosCumparaturi); // Creare panou lateral pentru medic
 
@@ -63,8 +63,8 @@ public class MainFrame extends JFrame {
         add(sidePanel); // Adaugare panou lateral in fereastra principala
     }
 
-    public DefaultTableModel getModel() {
-        return model; // Returnare model tabel
+    public DefaultTableModel getModelTabelDefault() {
+        return modelTabelDefault; // Returnare modelTabelDefault tabel
     }
 
     public JTable getTabelStoc() {
@@ -88,7 +88,7 @@ public class MainFrame extends JFrame {
         updateDTLabel.start(); // Pornire actualizare data si ora
     }
 
-    private void createpopupStergeProdus() {
+    private void createPopupSterge() {
         popupStergeProdus = new Table_Listeners(this).createPopup(); // Creare popup pentru stergerea produsului
     }
 

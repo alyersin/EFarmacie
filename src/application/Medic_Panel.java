@@ -6,9 +6,10 @@ import java.io.*;
 public class Medic_Panel extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextField nrRetetaField, numeMedicField, prenumeMedicField, codMedicField; // Campuri de text pentru detalii reteta si medic
-    private MainFrame frame; // Referinta la obiectul MainFrame
-    public Medic_Panel(MainFrame frame, Cos_Cumparaturi cosCumparaturi) {
-        this.frame = frame; // Initializare referinta frame
+    private MainFrame mainFrame; // Referinta la obiectul MainFrame
+    
+    public Medic_Panel(MainFrame mainFrame, Cos_Cumparaturi cosCumparaturi) {
+        this.mainFrame = mainFrame; // Initializare referinta mainFrame
         setLayout(null); // Setare layout nul
         setupComponents(); // Configurarea componentelor
     }
@@ -40,13 +41,13 @@ public class Medic_Panel extends JPanel {
         add(codMedicField); // Adaugare camp text cod medic in panou
         add(submitButton); // Adaugare buton in panou
     }
-
+    //Generator Labels 
     private JLabel createLabel(String text, int x, int y) {
         JLabel label = new JLabel(text); // Creare eticheta cu textul specificat
         label.setBounds(x, y, 100, 30); // Setare pozitie si dimensiune eticheta
         return label; // Returnare eticheta
     }
-
+    //Generator TextFields
     private JTextField createTextField(int x, int y) {
         JTextField textField = new JTextField(15); // Creare camp text cu lungime maxima de 15 caractere
         textField.setBounds(x, y, 200, 30); // Setare pozitie si dimensiune camp text
@@ -62,10 +63,10 @@ public class Medic_Panel extends JPanel {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("retete.txt", true))) { // Deschidere fisier pentru scriere in mod append
             writer.write(nrReteta + ":" + nume + ":" + prenume + ":" + codMedic); // Scriere detalii reteta in fisier
             writer.newLine(); // Linie noua
-            frame.showMessage("Reteta salvata cu succes."); // Afisare mesaj de succes
+            mainFrame.showMessage("Reteta salvata cu succes."); // Afisare mesaj de succes
             clearTextFields(nrRetetaField, numeMedicField, prenumeMedicField, codMedicField); // Stergere text din campuri
         } catch (IOException e) {
-            frame.showError("Eroare la salvarea retetei: " + e.getMessage()); // Afisare mesaj de eroare daca apare o exceptie la scrierea fisierului
+            mainFrame.showError("Eroare la salvarea retetei: " + e.getMessage()); // Afisare mesaj de eroare daca apare o exceptie la scrierea fisierului
         }
     }
 

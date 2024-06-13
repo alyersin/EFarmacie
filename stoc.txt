@@ -4,6 +4,3 @@ Canticer:Hyriopsis Cumingii Leach:cancer::3 / zi:41:326.70
 Xanax:alprazolam :boli mintale::medic:18:12.10
 Aspirina:acid acetilsalicilic:Raceala:alergic la acid acetilsalicilic:1-2 / zi:88:17.60
 Nurofen:Ibuprofen:Raceli::1- 2 / zi:91:24.20
-Aripiprazol:aripiprazol substanta activa:boli mintale:alergie la aripiprazol:1 / zi:55:13.20
-dad:asdsad:das:das:das:da:135.30
-dasda:dasdas:dsdadas:sa:das:sda:135.30
