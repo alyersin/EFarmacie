@@ -5,6 +5,7 @@ import java.io.*;
 
 public class Medic_Panel extends JPanel {
     private static final long serialVersionUID = 1L;
+    
     private JTextField nrRetetaField, numeMedicField, prenumeMedicField, codMedicField; // Campuri de text pentru detalii reteta si medic
     private MainFrame mainFrame; // Referinta la obiectul MainFrame
     
@@ -15,17 +16,17 @@ public class Medic_Panel extends JPanel {
     }
 
     private void setupComponents() {
-        JLabel nrRetetaLabel = createLabel("Nr. reteta:", 20, 20); // Creare eticheta pentru nr. reteta
-        nrRetetaField = createTextField(120, 20); // Creare camp text pentru nr. reteta
+        JLabel nrRetetaLabel = generatorLabel("Nr. reteta:", 20, 20); // Creare eticheta pentru nr. reteta
+        nrRetetaField = generatorTextField(120, 20); // Creare camp text pentru nr. reteta
 
-        JLabel numeLabel = createLabel("Nume:", 20, 60); // Creare eticheta pentru nume
-        numeMedicField = createTextField(120, 60); // Creare camp text pentru nume
+        JLabel numeLabel = generatorLabel("Nume:", 20, 60); // Creare eticheta pentru nume
+        numeMedicField = generatorTextField(120, 60); // Creare camp text pentru nume
 
-        JLabel prenumeLabel = createLabel("Prenume:", 20, 100); // Creare eticheta pentru prenume
-        prenumeMedicField = createTextField(120, 100); // Creare camp text pentru prenume
+        JLabel prenumeLabel = generatorLabel("Prenume:", 20, 100); // Creare eticheta pentru prenume
+        prenumeMedicField = generatorTextField(120, 100); // Creare camp text pentru prenume
 
-        JLabel codMedicLabel = createLabel("Cod Medic:", 20, 140); // Creare eticheta pentru cod medic
-        codMedicField = createTextField(120, 140); // Creare camp text pentru cod medic
+        JLabel codMedicLabel = generatorLabel("Cod Medic:", 20, 140); // Creare eticheta pentru cod medic
+        codMedicField = generatorTextField(120, 140); // Creare camp text pentru cod medic
 
         JButton submitButton = new JButton("Submit"); // Creare buton pentru submit
         submitButton.setBounds(120, 180, 100, 30); // Setare pozitie si dimensiune buton
@@ -41,18 +42,6 @@ public class Medic_Panel extends JPanel {
         add(codMedicField); // Adaugare camp text cod medic in panou
         add(submitButton); // Adaugare buton in panou
     }
-    //Generator Labels 
-    private JLabel createLabel(String text, int x, int y) {
-        JLabel label = new JLabel(text); // Creare eticheta cu textul specificat
-        label.setBounds(x, y, 100, 30); // Setare pozitie si dimensiune eticheta
-        return label; // Returnare eticheta
-    }
-    //Generator TextFields
-    private JTextField createTextField(int x, int y) {
-        JTextField textField = new JTextField(15); // Creare camp text cu lungime maxima de 15 caractere
-        textField.setBounds(x, y, 200, 30); // Setare pozitie si dimensiune camp text
-        return textField; // Returnare camp text
-    }
 
     private void saveInputsToFile() {
         String nrReteta = nrRetetaField.getText(); // Obtine textul din campul nr. reteta
@@ -60,19 +49,32 @@ public class Medic_Panel extends JPanel {
         String prenume = prenumeMedicField.getText(); // Obtine textul din campul prenume
         String codMedic = codMedicField.getText(); // Obtine textul din campul cod medic
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("retete.txt", true))) { // Deschidere fisier pentru scriere in mod append
-            writer.write(nrReteta + ":" + nume + ":" + prenume + ":" + codMedic); // Scriere detalii reteta in fisier
-            writer.newLine(); // Linie noua
-            mainFrame.showMessage("Reteta salvata cu succes."); // Afisare mesaj de succes
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("retete.txt", true))) { // Deschidere fisier pentru scriere in mod append
+            bw.write(nrReteta + ":" + nume + ":" + prenume + ":" + codMedic); // Scriere detalii reteta in fisier
+            bw.newLine(); // Linie noua
+            mainFrame.showMessage("Reteta adaugata"); // Afisare mesaj de succes
             clearTextFields(nrRetetaField, numeMedicField, prenumeMedicField, codMedicField); // Stergere text din campuri
         } catch (IOException e) {
             mainFrame.showError("Eroare la salvarea retetei: " + e.getMessage()); // Afisare mesaj de eroare daca apare o exceptie la scrierea fisierului
         }
     }
-
+    // VARARGS = variable argument (accepts 0 / multiple arguments)
     private void clearTextFields(JTextField... fields) {
         for (JTextField field : fields) {
             field.setText(""); // Stergere text din fiecare camp
         }
+    }
+    
+    //Generator Labels 
+    private JLabel generatorLabel(String text, int x, int y) {
+        JLabel label = new JLabel(text); // Creare eticheta cu textul specificat
+        label.setBounds(x, y, 100, 30); // Setare pozitie si dimensiune eticheta
+        return label; // Returnare eticheta
+    }
+    //Generator TextFields
+    private JTextField generatorTextField(int x, int y) {
+        JTextField textField = new JTextField(15); // Creare camp text cu lungime maxima de 15 caractere
+        textField.setBounds(x, y, 200, 30); // Setare pozitie si dimensiune camp text
+        return textField; // Returnare camp text
     }
 }

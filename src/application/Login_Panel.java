@@ -12,46 +12,47 @@ public class Login_Panel extends JFrame implements ActionListener {
     public JButton loginBtn; // Buton pentru autentificare
     public JLabel userLabel, passLabel; // Etichete pentru campurile de text
     public JTextField userField; // Camp text pentru utilizator
-    public JPasswordField passFIeld; // Camp text pentru parola
+    public JPasswordField passField; // Camp text pentru parola
     public List<String> usersArray; // Lista pentru username-uri
     public List<String> passwordsArray; // Lista pentru parole
 
     Login_Panel() {
-        // Incarca conturile din fisier
+    	
         loadAccounts("accounts.txt"); // Apelare metoda pentru incarcarea conturilor din fisier
+    	
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Setare actiune inchidere fereastra
+        setTitle("LOGIN"); // Setare titlu fereastra
+        setSize(400, 300); // Setare dimensiune fereastra
 
         getContentPane().setLayout(null);  // Setare layout nul pentru utilizarea coordonatelor absolute
 
-        userLabel = new JLabel("User"); // Creare eticheta pentru utilizator
+        userLabel = new JLabel("username"); // Creare eticheta pentru utilizator
         userLabel.setBounds(100, 100, 80, 30); // Setare pozitie si dimensiune eticheta
         userField = new JTextField(15); // Creare camp text pentru utilizator cu lungime maxima de 15 caractere
         userField.setBounds(200, 100, 200, 30); // Setare pozitie si dimensiune camp text
 
         passLabel = new JLabel("Parola"); // Creare eticheta pentru parola
         passLabel.setBounds(100, 150, 80, 30); // Setare pozitie si dimensiune eticheta
-        passFIeld = new JPasswordField(15); // Creare camp text pentru parola cu lungime maxima de 15 caractere
-        passFIeld.setBounds(200, 150, 200, 30); // Setare pozitie si dimensiune camp text
+        passField = new JPasswordField(15); // Creare camp text pentru parola cu lungime maxima de 15 caractere
+        passField.setBounds(200, 150, 200, 30); // Setare pozitie si dimensiune camp text
 
         loginBtn = new JButton("Login"); // Creare buton pentru autentificare
         loginBtn.setBounds(200, 200, 100, 30); // Setare pozitie si dimensiune buton
 
         getContentPane().add(userLabel); // Adaugare eticheta utilizator in panou
         getContentPane().add(userField); // Adaugare camp text utilizator in panou
-        getContentPane().add(passLabel); // Adaugare eticheta parola in panou
-        getContentPane().add(passFIeld); // Adaugare camp text parola in panou
+        getContentPane().add(passLabel); // Adaugare eticheta parola in panou 
+        getContentPane().add(passField); // Adaugare camp text parola in panou
         getContentPane().add(loginBtn); // Adaugare buton in panou
 
         loginBtn.addActionListener(this); // Adaugare ascultator de actiuni pentru buton
-        setTitle("LOGIN"); // Setare titlu fereastra
-        setSize(400, 300); // Setare dimensiune fereastra
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Setare actiune inchidere fereastra
 
-        EnterKeyListener(userField); // Adaugare listener pentru tasta Enter la campul text utilizator
-        EnterKeyListener(passFIeld); // Adaugare listener pentru tasta Enter la campul text parola
+        enterKeyListener(userField); // Adaugare listener pentru tasta Enter la campul text utilizator
+        enterKeyListener(passField); // Adaugare listener pentru tasta Enter la campul text parola
     }
 
     // Listener pentru tasta Enter
-    private void EnterKeyListener(JComponent comp) {
+    private void enterKeyListener(JComponent comp) {
         comp.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -63,15 +64,15 @@ public class Login_Panel extends JFrame implements ActionListener {
 
     // Gestionare autentificare
     public void actionPerformed(ActionEvent ae) {
-        String user = userField.getText(); // Obtine textul din campul utilizator
-        String pass = new String(passFIeld.getPassword()); // Obtine textul din campul parola
+        String username = userField.getText(); // Obtine textul din campul utilizator
+        String password = new String(passField.getPassword()); // Obtine textul din campul parola
 
-        if (autentificare(user, pass)) { // Verifica autentificarea
+        if (autentificare(username, password)) { // Verifica autentificarea
             MainFrame mf = new MainFrame(); // Creare instanta MainFrame
             mf.setVisible(true); // Setare vizibilitate fereastra principala
             setVisible(false); // Ascundere fereastra de login
         } else {
-            showError("user / parola incorecte"); // Afisare mesaj de eroare pentru autentificare esuata
+            showError("username / parola incorecte"); // Afisare mesaj de eroare pentru autentificare esuata
         }
     }
 
@@ -80,12 +81,12 @@ public class Login_Panel extends JFrame implements ActionListener {
         usersArray = new ArrayList<>(); // Initializare lista pentru username-uri
         passwordsArray = new ArrayList<>(); // Initializare lista pentru parole
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) { // Deschidere fisier pentru citire
-            String linie; // Declarare variabila pentru stocarea liniilor citite din fisier
-            while ((linie = br.readLine()) != null) { // Citire linii din fisier pana la sfarsit
-                String[] temp = linie.split(":"); // Impartire linie in username si parola folosind ":" ca delimitator
+            String lineRead; // Declarare variabila pentru stocarea liniilor citite din fisier
+            while ((lineRead = br.readLine()) != null) { // Citire linii din fisier pana la sfarsit
+                String[] temp = lineRead.split(":"); // Impartire lineRead in username si parola folosind ":" ca delimitator
                 if (temp.length == 2) { // Verificare daca linia contine exact 2 elemente
-                    usersArray.add(temp[0]); // Adaugare username in lista
-                    passwordsArray.add(temp[1]); // Adaugare parola in lista
+                    usersArray.add(temp[0]); // Adaugare username in usersArray[]
+                    passwordsArray.add(temp[1]); // Adaugare parola in passwordsArray[]
                 }
             }
         } catch (IOException e) {

@@ -10,7 +10,7 @@ public class Search_Panel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private JTextField searchField; // Camp text pentru cautare
-    private JButton adaugaProdus, btnCos, searchButton; // Butoane pentru adaugare produs, vizualizare cos si cautare
+    private JButton adaugaProdusStoc, btnCos, searchButton; // Butoane pentru adaugare produs, vizualizare cos si cautare
     private JLabel DTLabel; // Eticheta pentru afisarea datei si orei
     private MainFrame mainFrame; // Referinta la obiectul MainFrame
     private int ultimaLinieGasita = -1; // Indexul ultimei linii gasite
@@ -30,9 +30,9 @@ public class Search_Panel extends JPanel {
         searchButton.setBounds(320, 10, 100, 25); // Setare pozitie si dimensiune
         searchButton.addActionListener(e -> cautaProduse()); // Adaugare ascultator pentru evenimentul de cautare
 
-        adaugaProdus = new JButton("Adauga Produs"); // Creare buton de adaugare produs
-        adaugaProdus.setBounds(10, 50, 150, 30); // Setare pozitie si dimensiune
-        adaugaProdus.addActionListener(e -> new Produs_Panel(mainFrame).adaugaProdus()); // Adaugare ascultator pentru evenimentul de adaugare produs
+        adaugaProdusStoc = new JButton("Adauga Produs"); // Creare buton de adaugare produs
+        adaugaProdusStoc.setBounds(10, 50, 150, 30); // Setare pozitie si dimensiune
+        adaugaProdusStoc.addActionListener(e -> new Produs_Panel(mainFrame).adaugaProdusStoc()); // Adaugare ascultator pentru evenimentul de adaugare produs
 
         btnCos = new JButton("Cos"); // Creare buton pentru vizualizarea cosului
         btnCos.setBounds(170, 50, 150, 30); // Setare pozitie si dimensiune
@@ -51,7 +51,7 @@ public class Search_Panel extends JPanel {
         add(scrollPane); // Adaugare componenta scroll la panou
         add(searchField); // Adaugare camp text cautare la panou
         add(searchButton); // Adaugare buton cautare la panou
-        add(adaugaProdus); // Adaugare buton adaugare produs la panou
+        add(adaugaProdusStoc); // Adaugare buton adaugare produs la panou
         add(btnCos); // Adaugare buton vizualizare cos la panou
         add(DTLabel); // Adaugare eticheta data si ora la panou
     }

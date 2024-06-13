@@ -124,7 +124,7 @@ public class Produs_Panel extends JPanel {
     }
 
     // Metoda pentru adaugarea unui produs nou
-    public void adaugaProdus() {
+    public void adaugaProdusStoc() {
         Produs_Panel produsPanel = new Produs_Panel(mainFrame); // Creare instanta Produs_Panel
         int result = JOptionPane.showConfirmDialog(null, produsPanel, "Adauga Produs",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE); // Afisare dialog pentru adaugarea produsului
@@ -225,6 +225,6 @@ public class Produs_Panel extends JPanel {
                 pretField.getText() // Obtine pretul produsului
         };
         mainFrame.getCosProduse().add(produs); // Adaugare produs in cos
-        mainFrame.showMessage("Produsul a fost adaugat in cos."); // Afisare mesaj de confirmare
+        mainFrame.showMessage("Produsul adaugat in cos"); // Afisare mesaj de confirmare
     }
 }

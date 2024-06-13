@@ -83,13 +83,9 @@ public class MainFrame extends JFrame {
         return searchPanel.getSearchField(); // Returnare camp text pentru cautare
     }
 
-    public void updateDateTimeLabel(JLabel dtLabel) {
-        updateDTLabel = new DTLabel(dtLabel); // Creare instanta DTLabel
+    public void updateDateTimeLabel(JLabel DTLabel) {
+        updateDTLabel = new DTLabel(DTLabel); // Creare instanta DTLabel
         updateDTLabel.start(); // Pornire actualizare data si ora
-    }
-
-    private void createPopupSterge() {
-        popupStergeProdus = new Table_Listeners(this).createPopup(); // Creare popup pentru stergerea produsului
     }
 
     public void showError(String message) {
@@ -102,5 +98,9 @@ public class MainFrame extends JFrame {
 
     public Cos_Cumparaturi getCosCumparaturi() {
         return cosCumparaturi; // Returnare obiect Cos_Cumparaturi
+    }
+    
+    private void createPopupSterge() {
+        popupStergeProdus = new Table_Listeners(this).createPopup(); // Creare popup pentru stergerea produsului
     }
 }
