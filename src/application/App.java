@@ -7,7 +7,7 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        try {
+        try { 
             // Creaza o instanta dupa Login_Panel
             Login_Panel lp = new Login_Panel();
             lp.setSize(800, 600); // Seteaza dimensiunea
