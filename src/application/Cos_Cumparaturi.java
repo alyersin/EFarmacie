@@ -13,13 +13,13 @@ import java.util.List;
 
 public class Cos_Cumparaturi {
     private List<String[]> cosProduse; // Lista pentru produsele din cos
-    private JPanel prescriptiePanel; // Panou pentru prescriptie
+    private JPanel retetaPanel; // Panou pentru prescriptie
     private DefaultTableModel retetaTabelModel; // Model de tabel pentru prescriptie
 
     public Cos_Cumparaturi(List<String[]> cosProduse) {
         this.cosProduse = cosProduse; // Initializare lista produse din cos
-        this.prescriptiePanel = new JPanel(); // Creare panou prescriptie
-        prescriptiePanel.setLayout(new BoxLayout(prescriptiePanel, BoxLayout.Y_AXIS)); // Setare layout vertical
+        this.retetaPanel = new JPanel(); // Creare panou prescriptie
+        retetaPanel.setLayout(new BoxLayout(retetaPanel, BoxLayout.Y_AXIS)); // Setare layout vertical
         initPrescriptieTabelModel(); // Initializare model tabel prescriptie
     }
 
@@ -47,9 +47,9 @@ public class Cos_Cumparaturi {
         retetaScrollPane.setBounds(10, 320, 780, 100); // Setare pozitie si dimensiune panou de derulare prescriptie
         cosPanel.add(retetaScrollPane); // Adaugare panou de derulare prescriptie in panoul cos
 
-        JPanel cosBtn = cosBtnPanel(tabelCosProduse, tabelCos); // Creare panou butoane pentru cos
-        cosBtn.setBounds(10, 430, 780, 50); // Setare pozitie si dimensiune panou butoane
-        cosPanel.add(cosBtn); // Adaugare panou butoane in panoul cos
+        JPanel btnsPanel = cosBtnsPanel(tabelCosProduse, tabelCos); // Creare panou butoane pentru cos
+        btnsPanel.setBounds(10, 430, 780, 50); // Setare pozitie si dimensiune panou butoane
+        cosPanel.add(btnsPanel); // Adaugare panou butoane in panoul cos
 
         incarcaReteteTabel(); // Incarcare date prescriptie din fisier
 
@@ -99,9 +99,9 @@ public class Cos_Cumparaturi {
         }
     }
 
-    private int cautaIndexProdus(List<String[]> uniqueItemsArray, String productName) {
+    private int cautaIndexProdus(List<String[]> uniqueItemsArray, String produsNume) {
         for (int i = 0; i < uniqueItemsArray.size(); i++) {
-            if (uniqueItemsArray.get(i)[0].equals(productName)) { // Comparare nume produs
+            if (uniqueItemsArray.get(i)[0].equals(produsNume)) { // Comparare nume produs
                 return i; // Returnare index daca produsul este gasit
             }
         }
@@ -118,25 +118,25 @@ public class Cos_Cumparaturi {
         tabelCosProduse.addRow(new Object[]{"", "", "", "TOTAL", String.format("%.2f", totalFinal)}); // Adaugare rand total in tabel
     }
 
-    private JPanel cosBtnPanel(DefaultTableModel tabelCosProduse, JTable tabelCos) {
+    private JPanel cosBtnsPanel(DefaultTableModel tabelCosProduse, JTable tabelCos) {
         JButton stergeBtn = generatorButoane("Sterge", e -> stergeProdusDinCos(tabelCos, tabelCosProduse)); // Creare buton pentru stergere produs
         JButton printBtn = generatorButoane("Printeaza Factura", e -> printFactura(tabelCos)); // Creare buton pentru printare factura
         JButton discountBtn = generatorButoane("Compensat", e -> aplicaReducere(tabelCosProduse)); // Creare buton pentru aplicare reducere
         JButton stergeRetetaBtn = generatorButoane("Sterge Reteta", e -> stergeRandDinPrescriptie()); // Creare buton pentru stergere prescriptie
 
-        JPanel cosBtn = new JPanel(null); // Creare panou pentru butoane cu layout nul
-        cosBtn.setPreferredSize(new Dimension(780, 50)); // Setare dimensiune preferata panou butoane
+        JPanel btnsPanel = new JPanel(null); // Creare panou pentru butoane cu layout nul
+        btnsPanel.setPreferredSize(new Dimension(780, 50)); // Setare dimensiune preferata panou butoane
 
         stergeBtn.setBounds(10, 10, 120, 30); // Setare pozitie si dimensiune buton stergere produs
-        cosBtn.add(stergeBtn); // Adaugare buton stergere produs in panou
+        btnsPanel.add(stergeBtn); // Adaugare buton stergere produs in panou
         printBtn.setBounds(140, 10, 150, 30); // Setare pozitie si dimensiune buton printare factura
-        cosBtn.add(printBtn); // Adaugare buton printare factura in panou
+        btnsPanel.add(printBtn); // Adaugare buton printare factura in panou
         discountBtn.setBounds(300, 10, 120, 30); // Setare pozitie si dimensiune buton aplicare reducere
-        cosBtn.add(discountBtn); // Adaugare buton aplicare reducere in panou
+        btnsPanel.add(discountBtn); // Adaugare buton aplicare reducere in panou
         stergeRetetaBtn.setBounds(430, 10, 180, 30); // Setare pozitie si dimensiune buton stergere prescriptie
-        cosBtn.add(stergeRetetaBtn); // Adaugare buton stergere prescriptie in panou
+        btnsPanel.add(stergeRetetaBtn); // Adaugare buton stergere prescriptie in panou
 
-        return cosBtn; // Returnare panou butoane
+        return btnsPanel; // Returnare panou butoane
     }
 
     private void stergeProdusDinCos(JTable tabelCos, DefaultTableModel tabelCosProduse) {
@@ -167,9 +167,9 @@ public class Cos_Cumparaturi {
             tabelCos.print(JTable.PrintMode.FIT_WIDTH,
                 new MessageFormat("Factura - " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new java.util.Date())), // Format pentru antet factura
                 new MessageFormat("Page {0}")); // Format pentru pagina
-            prescriptiePanel.removeAll(); // Sterge toate componentele din panou prescriptie
-            prescriptiePanel.revalidate(); // Revalideaza panoul
-            prescriptiePanel.repaint(); // Reface panoul
+            retetaPanel.removeAll(); // Sterge toate componentele din panou prescriptie
+            retetaPanel.revalidate(); // Revalideaza panoul
+            retetaPanel.repaint(); // Reface panoul
 
         } catch (PrinterException pe) {
             JOptionPane.showMessageDialog(null, "Eroare la printare: " + pe.getMessage(), "Eroare", JOptionPane.ERROR_MESSAGE); // Afisare mesaj de eroare la printare

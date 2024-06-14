@@ -33,7 +33,7 @@ public class Medic_Panel extends JPanel {
 
         JButton submitButton = new JButton("Submit"); // Creare buton pentru submit
         submitButton.setBounds(90, 180, 100, 30); // Setare pozitie si dimensiune buton
-        submitButton.addActionListener(e -> saveInputsToFile()); // Adaugare ascultator pentru buton
+        submitButton.addActionListener(e -> salveazaRetetaInFisier()); // Adaugare ascultator pentru buton
         
         
         ImageIcon logo = new ImageIcon("ePharmacy_logo1.png"); // Load the image
@@ -52,7 +52,7 @@ public class Medic_Panel extends JPanel {
         add(logoLabel); // Add logo to the panel
     }
 
-    private void saveInputsToFile() {
+    private void salveazaRetetaInFisier() {
         String nrReteta = nrRetetaField.getText(); // Obtine textul din campul nr. reteta
         String nume = numeMedicField.getText(); // Obtine textul din campul nume
         String prenume = prenumeMedicField.getText(); // Obtine textul din campul prenume
@@ -74,7 +74,7 @@ public class Medic_Panel extends JPanel {
         }
     }
     
-    //Generator Labels 
+    //Generator Labels
     private JLabel generatorLabel(String text, int x, int y) {
         JLabel label = new JLabel(text); // Creare eticheta cu textul specificat
         label.setBounds(x, y, 100, 30); // Setare pozitie si dimensiune eticheta

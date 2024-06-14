@@ -20,7 +20,8 @@ public class Produs_Panel extends JPanel {
     }
 
     // Constructor pentru initializarea panoului de produs (CARE EXISTA) cu detalii predefinite si referinta la MainFrame
-    public Produs_Panel(MainFrame mainFrame, String nume, String compozitie, String indicatii, String contraindicatii, String mod, String stoc, String pret) {
+    public Produs_Panel(MainFrame mainFrame, String nume, String compozitie, String indicatii, String contraindicatii, String modAdmin
+    		, String stoc, String pret) {
         this.mainFrame = mainFrame; // Initializare referinta mainFrame
         setBackground(Color.LIGHT_GRAY);
         displayProdusPanel(); // Configurarea panoului
@@ -28,7 +29,7 @@ public class Produs_Panel extends JPanel {
         compozitieField.setText(compozitie); // Setare text pentru campul compozitie
         indicatiiField.setText(indicatii); // Setare text pentru campul indicatii
         contraindicatiiField.setText(contraindicatii); // Setare text pentru campul contraindicatii
-        modAdminField.setText(mod); // Setare text pentru campul mod de administrare
+        modAdminField.setText(modAdmin); // Setare text pentru campul mod de administrare
         stocField.setText(stoc); // Setare text pentru campul stoc
         pretField.setText(pret); // Setare text pentru campul pret
     }
@@ -169,9 +170,9 @@ public class Produs_Panel extends JPanel {
 
     // Metoda pentru salvarea produsului in fisier
     private void salveazaProdusFisier(String nume, String compozitie, String indicatii,
-                                      String contraindicatii, String mod, String stoc, String pret) {
+                                      String contraindicatii, String modAdmin, String stoc, String pret) {
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter("stoc.txt", true))) { //Am folosit bwriter si fwriter pentru eficienta (se putea folosi si doar 1 din ele)
-            bWriter.write(nume + ":" + compozitie + ":" + indicatii + ":" + contraindicatii + ":" + mod + ":" + stoc + ":" + pret); // Scriere produs in fisier
+            bWriter.write(nume + ":" + compozitie + ":" + indicatii + ":" + contraindicatii + ":" + modAdmin + ":" + stoc + ":" + pret); // Scriere produs in fisier
             bWriter.newLine(); // Linie noua
         } catch (IOException e) {
             mainFrame.showError("Eroare: " + e.getMessage()); // Afisare mesaj de eroare
