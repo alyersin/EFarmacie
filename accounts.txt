@@ -1,2 +1,3 @@
 a:a
-bacalecristian:cristian
+bacale:cristian
+ali:ersin

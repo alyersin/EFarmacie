@@ -10,169 +10,167 @@ import javax.swing.table.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Cos_Cumparaturi {
-    private List<String[]> cosProduse; // Lista pentru produsele din cos
-    private JPanel retetaPanel; // Panou pentru prescriptie
-    private DefaultTableModel retetaTabelModel; // Model de tabel pentru prescriptie
+    private List<String[]> cosProduse;
+    private JPanel retetaPanel;
+    private DefaultTableModel retetaTabelModel;
 
     public Cos_Cumparaturi(List<String[]> cosProduse) {
-        this.cosProduse = cosProduse; // Initializare lista produse din cos
-        this.retetaPanel = new JPanel(); // Creare panou prescriptie
-        retetaPanel.setLayout(new BoxLayout(retetaPanel, BoxLayout.Y_AXIS)); // Setare layout vertical
-        initPrescriptieTabelModel(); // Initializare model tabel prescriptie
+        this.cosProduse = cosProduse;
+        this.retetaPanel = new JPanel();
+        retetaPanel.setLayout(new BoxLayout(retetaPanel, BoxLayout.Y_AXIS));
+        initPrescriptieTabelModel();
     }
 
     private void initPrescriptieTabelModel() {
-        retetaTabelModel = new DefaultTableModel(new Object[]{"Nr. Reteta", "Nume", "Prenume", "Cod Medic"}, 0); // Creare model tabel cu coloane specifice
+        retetaTabelModel = new DefaultTableModel(new Object[]{"Nr. Reteta", "Nume", "Prenume", "Cod Medic"}, 0);
     }
 
     public void displayCos(Component parentComponent) {
-        JPanel cosPanel = new JPanel(null); // Creare panou pentru cos cu layout nul
-        cosPanel.setPreferredSize(new Dimension(800, 600)); // Setare dimensiune preferata a panoului
-        cosPanel.setBackground(Color.LIGHT_GRAY); // Setare culoare fundal
+        JPanel cosPanel = new JPanel(null);
+        cosPanel.setPreferredSize(new Dimension(800, 600));
+        cosPanel.setBackground(Color.LIGHT_GRAY);
 
-        DefaultTableModel tabelCosProduse = new DefaultTableModel(new Object[]{"Nume", "Indicatii", "Pret", "Cantitate", "Total"}, 0); // Creare model tabel pentru cos cu 0 rows
-        JTable tabelCos = new JTable(tabelCosProduse); // Creare tabel pentru cos (dupa modelul default)
-        incarcaProduseTabel(tabelCosProduse); // Incarcare produse in tabel
+        DefaultTableModel tabelCosProduse = new DefaultTableModel(new Object[]{"Nume", "Indicatii", "Pret", "Cantitate", "Total"}, 0);
+        JTable tabelCos = new JTable(tabelCosProduse);
+        incarcaProduseTabel(tabelCosProduse);
 
-        JScrollPane scrollPane = new JScrollPane(tabelCos); // Creare panou de derulare pentru tabel
-        scrollPane.setBounds(10, 10, 780, 300); // Setare pozitie si dimensiune panou de derulare
-        cosPanel.add(scrollPane); // Adaugare panou de derulare in panoul cos
+        JScrollPane scrollPane = new JScrollPane(tabelCos);
+        scrollPane.setBounds(10, 10, 780, 300);
+        cosPanel.add(scrollPane);
 
-        addTotalRow(tabelCosProduse); // Adaugare rand total in tabel
+        addTotalRow(tabelCosProduse);
 
-        JTable retetaTabel = new JTable(retetaTabelModel); // Creare tabel pentru prescriptie
-        JScrollPane retetaScrollPane = new JScrollPane(retetaTabel); // Creare panou de derulare pentru tabel prescriptie
-        retetaScrollPane.setBounds(10, 320, 780, 100); // Setare pozitie si dimensiune panou de derulare prescriptie
-        cosPanel.add(retetaScrollPane); // Adaugare panou de derulare prescriptie in panoul cos
+        JTable retetaTabel = new JTable(retetaTabelModel);
+        JScrollPane retetaScrollPane = new JScrollPane(retetaTabel);
+        retetaScrollPane.setBounds(10, 320, 780, 100);
+        cosPanel.add(retetaScrollPane);
 
-        JPanel btnsPanel = cosBtnsPanel(tabelCosProduse, tabelCos); // Creare panou butoane pentru cos
-        btnsPanel.setBounds(10, 430, 780, 50); // Setare pozitie si dimensiune panou butoane
-        cosPanel.add(btnsPanel); // Adaugare panou butoane in panoul cos
+        JPanel btnsPanel = cosBtnsPanel(tabelCosProduse, tabelCos);
+        btnsPanel.setBounds(10, 430, 780, 50);
+        cosPanel.add(btnsPanel);
 
-        incarcaReteteTabel(); // Incarcare date prescriptie din fisier
+        incarcaReteteTabel();
 
-        JOptionPane.showMessageDialog(parentComponent, cosPanel, "Cos", JOptionPane.PLAIN_MESSAGE); // Afisare dialog pentru cos
+        JOptionPane.showMessageDialog(parentComponent, cosPanel, "Cos", JOptionPane.PLAIN_MESSAGE);
     }
 
     private void incarcaReteteTabel() {
-        retetaTabelModel.setRowCount(0); // Sterge randurile existente din tabel prescriptie
+        retetaTabelModel.setRowCount(0);
         String lastLine = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader("retete.txt"))) { // Deschidere fisier pentru citire
+        try (BufferedReader reader = new BufferedReader(new FileReader("retete.txt"))) {
             String line;
-            while ((line = reader.readLine()) != null) { // Citire linii din fisier
-                lastLine = line; // Pastrare ultima linie citita
+            while ((line = reader.readLine()) != null) {
+                lastLine = line;
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Tratament exceptii la citirea fisierului
+            e.printStackTrace();
         }
 
         if (lastLine != null) {
-            String[] data = lastLine.split(":"); // Impartire linie in componente
+            String[] data = lastLine.split(":");
             if (data.length == 4) {
-                retetaTabelModel.addRow(data); // Adaugare rand in tabel prescriptie
+                retetaTabelModel.addRow(data);
             }
         }
     }
 
     private void incarcaProduseTabel(DefaultTableModel tabelCosProduse) {
-        List<String[]> uniqueItemsArray = new ArrayList<>(); // Lista pentru produse unice
-        List<Integer> cantitatiArray = new ArrayList<>(); // Lista pentru cantitatiArray
+        List<String[]> uniqueItemsArray = new ArrayList<>();
+        List<Integer> cantitatiArray = new ArrayList<>();
 
         for (String[] produs : cosProduse) {
-            int index = cautaIndexProdus(uniqueItemsArray, produs[0]); // Cautare index produs
+            int index = cautaIndexProdus(uniqueItemsArray, produs[0]);
             if (index != -1) {
-                cantitatiArray.set(index, cantitatiArray.get(index) + 1); // Actualizare cantitate pentru produs existent
+                cantitatiArray.set(index, cantitatiArray.get(index) + 1);
             } else {
-                uniqueItemsArray.add(produs); // Adaugare produs nou
-                cantitatiArray.add(1); // Adaugare cantitate initiala
+                uniqueItemsArray.add(produs);
+                cantitatiArray.add(1);
             }
         }
 
         for (int i = 0; i < uniqueItemsArray.size(); i++) {
             String[] produs = uniqueItemsArray.get(i);
             int numarBucati = cantitatiArray.get(i);
-            double pretPerItem = Double.parseDouble(produs[6]); // Conversie pret per produs la double
-            double pretTotal = pretPerItem * numarBucati; // Calculare pret total
-            tabelCosProduse.addRow(new Object[]{produs[0], produs[2], String.format("%.2f", pretPerItem), numarBucati, String.format("%.2f", pretTotal)}); // Adaugare rand in tabel
+            double pretPerItem = Double.parseDouble(produs[6]);
+            double pretTotal = pretPerItem * numarBucati;
+            tabelCosProduse.addRow(new Object[]{produs[0], produs[2], String.format("%.2f", pretPerItem), numarBucati, String.format("%.2f", pretTotal)});
         }
     }
 
     private int cautaIndexProdus(List<String[]> uniqueItemsArray, String produsNume) {
         for (int i = 0; i < uniqueItemsArray.size(); i++) {
-            if (uniqueItemsArray.get(i)[0].equals(produsNume)) { // Comparare nume produs
-                return i; // Returnare index daca produsul este gasit
+            if (uniqueItemsArray.get(i)[0].equals(produsNume)) {
+                return i;
             }
         }
-        return -1; // Returnare -1 daca produsul nu este gasit
+        return -1;
     }
 
     private void addTotalRow(DefaultTableModel tabelCosProduse) {
         double totalFinal = 0.0;
 
         for (int i = 0; i < tabelCosProduse.getRowCount(); i++) {
-            totalFinal += Double.parseDouble((String) tabelCosProduse.getValueAt(i, 4)); // Calculare total final
+            totalFinal += Double.parseDouble((String) tabelCosProduse.getValueAt(i, 4));
         }
 
-        tabelCosProduse.addRow(new Object[]{"", "", "", "TOTAL", String.format("%.2f", totalFinal)}); // Adaugare rand total in tabel
+        tabelCosProduse.addRow(new Object[]{"", "", "", "TOTAL", String.format("%.2f", totalFinal)});
     }
 
     private JPanel cosBtnsPanel(DefaultTableModel tabelCosProduse, JTable tabelCos) {
-        JButton stergeBtn = generatorButoane("Sterge", e -> stergeProdusDinCos(tabelCos, tabelCosProduse)); // Creare buton pentru stergere produs
-        JButton printBtn = generatorButoane("Printeaza Factura", e -> printFactura(tabelCos)); // Creare buton pentru printare factura
-        JButton discountBtn = generatorButoane("Compensat", e -> aplicaReducere(tabelCosProduse)); // Creare buton pentru aplicare reducere
-        JButton stergeRetetaBtn = generatorButoane("Sterge Reteta", e -> stergeRandDinPrescriptie()); // Creare buton pentru stergere prescriptie
+        JButton stergeBtn = generatorButoane("Sterge", e -> stergeProdusDinCos(tabelCos, tabelCosProduse));
+        JButton printBtn = generatorButoane("Printeaza Factura", e -> printFactura(tabelCos));
+        JButton discountBtn = generatorButoane("Compensat", e -> aplicaReducere(tabelCosProduse));
+        JButton stergeRetetaBtn = generatorButoane("Sterge Reteta", e -> stergeRandDinPrescriptie());
 
-        JPanel btnsPanel = new JPanel(null); // Creare panou pentru butoane cu layout nul
-        btnsPanel.setPreferredSize(new Dimension(780, 50)); // Setare dimensiune preferata panou butoane
+        JPanel btnsPanel = new JPanel(null);
+        btnsPanel.setPreferredSize(new Dimension(780, 50));
 
-        stergeBtn.setBounds(10, 10, 120, 30); // Setare pozitie si dimensiune buton stergere produs
-        btnsPanel.add(stergeBtn); // Adaugare buton stergere produs in panou
-        printBtn.setBounds(140, 10, 150, 30); // Setare pozitie si dimensiune buton printare factura
-        btnsPanel.add(printBtn); // Adaugare buton printare factura in panou
-        discountBtn.setBounds(300, 10, 120, 30); // Setare pozitie si dimensiune buton aplicare reducere
-        btnsPanel.add(discountBtn); // Adaugare buton aplicare reducere in panou
-        stergeRetetaBtn.setBounds(430, 10, 180, 30); // Setare pozitie si dimensiune buton stergere prescriptie
-        btnsPanel.add(stergeRetetaBtn); // Adaugare buton stergere prescriptie in panou
+        stergeBtn.setBounds(10, 10, 120, 30);
+        btnsPanel.add(stergeBtn);
+        printBtn.setBounds(140, 10, 150, 30);
+        btnsPanel.add(printBtn);
+        discountBtn.setBounds(300, 10, 120, 30);
+        btnsPanel.add(discountBtn);
+        stergeRetetaBtn.setBounds(430, 10, 180, 30);
+        btnsPanel.add(stergeRetetaBtn);
 
-        return btnsPanel; // Returnare panou butoane
+        return btnsPanel;
     }
 
     private void stergeProdusDinCos(JTable tabelCos, DefaultTableModel tabelCosProduse) {
-        int randSelectat = tabelCos.getSelectedRow(); // Obtine randul selectat din tabel
+        int randSelectat = tabelCos.getSelectedRow();
         if (randSelectat != -1) {
-            String numeSelectat = (String) tabelCosProduse.getValueAt(randSelectat, 0); // Obtine numele produsului selectat
-            tabelCosProduse.removeRow(randSelectat); // Sterge randul selectat din tabel
+            String numeSelectat = (String) tabelCosProduse.getValueAt(randSelectat, 0);
+            tabelCosProduse.removeRow(randSelectat);
 
             for (int i = 0; i < cosProduse.size(); i++) {
                 if (cosProduse.get(i)[0].equals(numeSelectat)) {
-                    cosProduse.remove(i); // Sterge produsul din lista
+                    cosProduse.remove(i);
                     break;
                 }
             }
-            recalculeazaTotal(tabelCosProduse); // Recalculeaza totalul
+            recalculeazaTotal(tabelCosProduse);
         }
     }
 
     private void stergeRandDinPrescriptie() {
-        int randSelectat = retetaTabelModel.getRowCount() - 1; // Obtine indexul ultimului rand din tabel prescriptie
+        int randSelectat = retetaTabelModel.getRowCount() - 1;
         if (randSelectat >= 0) {
-            retetaTabelModel.removeRow(randSelectat); // Sterge ultimul rand din tabel prescriptie
+            retetaTabelModel.removeRow(randSelectat);
         }
     }
 
     private void printFactura(JTable tabelCos) {
         try {
             tabelCos.print(JTable.PrintMode.FIT_WIDTH,
-                new MessageFormat("Factura - " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new java.util.Date())), // Format pentru antet factura
-                new MessageFormat("Page {0}")); // Format pentru pagina
-            retetaPanel.removeAll(); // Sterge toate componentele din panou prescriptie
-            retetaPanel.revalidate(); // Revalideaza panoul
-            retetaPanel.repaint(); // Reface panoul
-
+                new MessageFormat("Factura - " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new java.util.Date())),
+                new MessageFormat("Page {0}"));
+            retetaPanel.removeAll();
+            retetaPanel.revalidate();
+            retetaPanel.repaint();
         } catch (PrinterException pe) {
-            JOptionPane.showMessageDialog(null, "Eroare la printare: " + pe.getMessage(), "Eroare", JOptionPane.ERROR_MESSAGE); // Afisare mesaj de eroare la printare
+            JOptionPane.showMessageDialog(null, "Eroare la printare: " + pe.getMessage(), "Eroare", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -180,49 +178,49 @@ public class Cos_Cumparaturi {
         for (int i = 0; i < tabelCosProduse.getRowCount(); i++) {
             String indicatii = (String) tabelCosProduse.getValueAt(i, 1);
             if (indicatii != null) {
-                double pretCuDiscount = getPretRedus(indicatii.toLowerCase(), (String) tabelCosProduse.getValueAt(i, 2)); // Calculare pret cu reducere
-                tabelCosProduse.setValueAt(String.format("%.2f", pretCuDiscount), i, 2); // Setare pret cu reducere in tabel
+                double pretCuDiscount = getPretRedus(indicatii.toLowerCase(), (String) tabelCosProduse.getValueAt(i, 2));
+                tabelCosProduse.setValueAt(String.format("%.2f", pretCuDiscount), i, 2);
 
-                int numarBucati = (int) tabelCosProduse.getValueAt(i, 3); // Obtine cantitatea
-                double pretTotal = pretCuDiscount * numarBucati; // Calculare pret total cu reducere
-                tabelCosProduse.setValueAt(String.format("%.2f", pretTotal), i, 4); // Setare pret total cu reducere in tabel
+                int numarBucati = (int) tabelCosProduse.getValueAt(i, 3);
+                double pretTotal = pretCuDiscount * numarBucati;
+                tabelCosProduse.setValueAt(String.format("%.2f", pretTotal), i, 4);
             }
         }
-        actualizareTotalLine(tabelCosProduse); // Actualizare linie total
+        actualizareTotalLine(tabelCosProduse);
     }
 
     private double getPretRedus(String indicatii, String originalPrice) {
-        double pret = Double.parseDouble(originalPrice); // Conversie pret original la double
+        double pret = Double.parseDouble(originalPrice);
         if (indicatii.contains("cancer")) {
-            return pret * 0.10; // Reducere 90% pentru cancer
+            return pret * 0.10;
         } else if (indicatii.contains("mintale") || indicatii.contains("mintala") || indicatii.contains("schizofrenie") || indicatii.contains("psihoza")) {
-            return 0.0; // Reducere 100% pentru afectiuni mintale
+            return 0.0;
         }
-        return pret; // Returnare pret original daca nu se aplica reducere
+        return pret;
     }
 
     private void recalculeazaTotal(DefaultTableModel tabelCosProduse) {
         double totalFinal = 0.0;
 
         for (int i = 0; i < tabelCosProduse.getRowCount(); i++) {
-            totalFinal += Double.parseDouble((String) tabelCosProduse.getValueAt(i, 4)); // Calculare total final
+            totalFinal += Double.parseDouble((String) tabelCosProduse.getValueAt(i, 4));
         }
 
-        tabelCosProduse.setValueAt(String.format("%.2f", totalFinal), tabelCosProduse.getRowCount() - 1, 4); // Setare total final in tabel
+        tabelCosProduse.setValueAt(String.format("%.2f", totalFinal), tabelCosProduse.getRowCount() - 1, 4);
     }
 
     private void actualizareTotalLine(DefaultTableModel tabelCosProduse) {
         double totalFinal = 0.0;
 
         for (int i = 0; i < tabelCosProduse.getRowCount() - 1; i++) {
-            totalFinal += Double.parseDouble((String) tabelCosProduse.getValueAt(i, 4)); // Calculare total final
+            totalFinal += Double.parseDouble((String) tabelCosProduse.getValueAt(i, 4));
         }
-        tabelCosProduse.setValueAt(String.format("%.2f", totalFinal), tabelCosProduse.getRowCount() - 1, 4); // Setare total final in tabel
+        tabelCosProduse.setValueAt(String.format("%.2f", totalFinal), tabelCosProduse.getRowCount() - 1, 4);
     }
 
     private JButton generatorButoane(String text, ActionListener listener) {
-        JButton btn = new JButton(text); // Creare buton cu textul specificat
-        btn.addActionListener(listener); // Adaugare ascultator pentru buton
-        return btn; // Returnare buton
+        JButton btn = new JButton(text);
+        btn.addActionListener(listener);
+        return btn;
     }
 }

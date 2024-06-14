@@ -5,48 +5,46 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Table_Listeners {
-    private MainFrame mainFrame; // Referinta la obiectul MainFrame
+    private MainFrame mainFrame;
 
     public Table_Listeners(MainFrame mainFrame) {
-        this.mainFrame = mainFrame; // Initializare referinta mainFrame
+        this.mainFrame = mainFrame;
     }
 
-    // Metoda pentru adaugarea ascultatorilor de evenimente
     public void addListeners() {
         mainFrame.getTabelStoc().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Verifica daca s-a facut dublu click
-                    int row = mainFrame.getTabelStoc().getSelectedRow(); // Obtine randul selectat
-                    if (row != -1) { // Verifica daca randul selectat este valid
-                        new Produs_Panel(mainFrame).deschideDetailPanel(mainFrame, row); // Deschide panoul de detalii pentru produsul selectat
+                if (e.getClickCount() == 2) {
+                    int row = mainFrame.getTabelStoc().getSelectedRow();
+                    if (row != -1) {
+                        new Produs_Panel(mainFrame).deschideDetailPanel(mainFrame, row);
                     }
                 }
             }
 
             public void mouseReleased(MouseEvent e) {
-                if (e.isPopupTrigger()) { // Verifica daca evenimentul a fost declansat de un meniu popup
-                    int row = mainFrame.getTabelStoc().rowAtPoint(e.getPoint()); // Obtine randul la care s-a facut click
-                    if (row != -1) { // Verifica daca randul este valid
-                        mainFrame.getTabelStoc().setRowSelectionInterval(row, row); // Selecteaza randul in tabel
-                        mainFrame.getPopupStergeProdus().show(e.getComponent(), e.getX(), e.getY()); // Afiseaza meniul popup la pozitia cursorului
+                if (e.isPopupTrigger()) {
+                    int row = mainFrame.getTabelStoc().rowAtPoint(e.getPoint());
+                    if (row != -1) {
+                        mainFrame.getTabelStoc().setRowSelectionInterval(row, row);
+                        mainFrame.getPopupStergeProdus().show(e.getComponent(), e.getX(), e.getY());
                     }
                 }
             }
         });
     }
 
-    // Metoda pentru crearea meniului popup
     public JPopupMenu createPopup() {
-        JPopupMenu popup = new JPopupMenu(); // Creare meniu popup
-        JMenuItem stergeItem = new JMenuItem("Sterge"); // Creare item de meniu pentru stergere
+        JPopupMenu popup = new JPopupMenu();
+        JMenuItem stergeItem = new JMenuItem("Sterge");
         stergeItem.addActionListener(e -> {
-            int randSelectat = mainFrame.getTabelStoc().getSelectedRow(); // Obtine randul selectat
-            if (randSelectat != -1) { // Verifica daca randul selectat este valid
-                mainFrame.getModelTabelDefault().removeRow(randSelectat); // Sterge randul din model
-                new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault()); // Salveaza toate datele in fisier
+            int randSelectat = mainFrame.getTabelStoc().getSelectedRow();
+            if (randSelectat != -1) {
+                mainFrame.getModelTabelDefault().removeRow(randSelectat);
+                new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault());
             }
         });
-        popup.add(stergeItem); // Adauga itemul de meniu la popup
-        return popup; // Returneaza meniul popup
+        popup.add(stergeItem);
+        return popup;
     }
 }

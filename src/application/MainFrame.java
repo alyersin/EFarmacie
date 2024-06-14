@@ -2,39 +2,38 @@ package application;
 
 import javax.swing.*;
 import javax.swing.table.*;
-
 import java.awt.Color;
 import java.util.*;
 import java.util.List;
 
 public class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
-    private DefaultTableModel modelTabelDefault; // Modelul tabelului pentru stoc
-    private JTable tabelStoc; // Tabelul pentru stoc
-    private List<String[]> cosProduse; // Lista de produse in cos
-    private Search_Panel searchPanel; // Panoul de cautare
-    private Medic_Panel medicPanel; // Panoul lateral pentru medic
-    private DTLabel updateDTLabel; // Eticheta pentru actualizarea datei si orei
-    private JPopupMenu popupStergeProdus; // Meniul popup pentru stergerea produsului
-    private Cos_Cumparaturi cosCumparaturi; // Obiect pentru gestionarea cosului de cumparaturi
+    private DefaultTableModel modelTabelDefault;
+    private JTable tabelStoc;
+    private List<String[]> cosProduse;
+    private Search_Panel searchPanel;
+    private Medic_Panel medicPanel;
+    private DTLabel updateDTLabel;
+    private JPopupMenu popupStergeProdus;
+    private Cos_Cumparaturi cosCumparaturi;
 
     public MainFrame() {
-    	setResizable(false);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Setare actiune inchidere fereastra
-        setTitle("EFarmacie"); // Setare titlu fereastra
-        setSize(1160, 800); // Setare dimensiune fereastra
-        setLocationRelativeTo(null); // Setare locatie fereastra in centru
-        setLayout(null); // Setare layout nul
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("EFarmacie");
+        setSize(1140, 760);
+        setLocationRelativeTo(null);
+        setLayout(null);
         getContentPane().setBackground(Color.LIGHT_GRAY);
 
-        cosProduse = new ArrayList<>(); // Initializare lista de produse in cos
-        cosCumparaturi = new Cos_Cumparaturi(cosProduse); // Initializare obiect Cos_Cumparaturi
+        cosProduse = new ArrayList<>();
+        cosCumparaturi = new Cos_Cumparaturi(cosProduse);
 
-        configurareTabel(); // Configurare tabel pentru stoc
-        initializarePanels(); // Initializare panouri
-        new Stoc_Farmacie().incarcaStoc(modelTabelDefault); // Incarcare stoc in tabel
-        new Table_Listeners(this).addListeners(); // Adaugare ascultatori pentru evenimente de tabel
-        createPopupSterge(); // Creare popup pentru stergerea produsului
+        configurareTabel();
+        initializarePanels();
+        new Stoc_Farmacie().incarcaStoc(modelTabelDefault);
+        new Table_Listeners(this).addListeners();
+        createPopupSterge();
     }
 
     private void configurareTabel() {
@@ -42,69 +41,69 @@ public class MainFrame extends JFrame {
             private static final long serialVersionUID = 1L;
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Setare celulele tabelului ca needitabile
+                return false;
             }
         };
-        modelTabelDefault.addColumn("Nume"); // Adaugare coloana "Nume"
-        modelTabelDefault.addColumn("Compozitie"); // Adaugare coloana "Compozitie"
-        modelTabelDefault.addColumn("Indicatii"); // Adaugare coloana "Indicatii"
-        modelTabelDefault.addColumn("Contraindicatii"); // Adaugare coloana "Contraindicatii"
-        modelTabelDefault.addColumn("Mod de administrare"); // Adaugare coloana "Mod de administrare"
-        modelTabelDefault.addColumn("Stoc"); // Adaugare coloana "Stoc"
-        modelTabelDefault.addColumn("Pret"); // Adaugare coloana "Pret"
-        tabelStoc = new JTable(modelTabelDefault); // Creare tabel cu modelul specificat
-        tabelStoc.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN); // Setare mod de redimensionare automata pentru ultima coloana
+        modelTabelDefault.addColumn("Nume");
+        modelTabelDefault.addColumn("Compozitie");
+        modelTabelDefault.addColumn("Indicatii");
+        modelTabelDefault.addColumn("Contraindicatii");
+        modelTabelDefault.addColumn("Mod de administrare");
+        modelTabelDefault.addColumn("Stoc");
+        modelTabelDefault.addColumn("Pret");
+        tabelStoc = new JTable(modelTabelDefault);
+        tabelStoc.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     private void initializarePanels() {
-        searchPanel = new Search_Panel(this); // Creare panou de cautare
-        medicPanel = new Medic_Panel(this, cosCumparaturi); // Creare panou lateral pentru medic
+        searchPanel = new Search_Panel(this);
+        medicPanel = new Medic_Panel(this, cosCumparaturi);
 
-        searchPanel.setBounds(0, 0, 800, 800); // Setare pozitie si dimensiune panou cautare
-        medicPanel.setBounds(810, 0, 340, 800); // Setare pozitie si dimensiune panou lateral
+        searchPanel.setBounds(0, 0, 800, 800);
+        medicPanel.setBounds(810, 0, 340, 800);
 
-        add(searchPanel); // Adaugare panou cautare in fereastra principala
-        add(medicPanel); // Adaugare panou lateral in fereastra principala
+        add(searchPanel);
+        add(medicPanel);
     }
 
     public DefaultTableModel getModelTabelDefault() {
-        return modelTabelDefault; // Returnare modelTabelDefault tabel
+        return modelTabelDefault;
     }
 
     public JTable getTabelStoc() {
-        return tabelStoc; // Returnare tabel stoc
+        return tabelStoc;
     }
 
     public List<String[]> getCosProduse() {
-        return cosProduse; // Returnare lista de produse in cos
+        return cosProduse;
     }
 
     public JPopupMenu getPopupStergeProdus() {
-        return popupStergeProdus; // Returnare meniul popup pentru stergerea produsului
+        return popupStergeProdus;
     }
 
     public JTextField getSearchField() {
-        return searchPanel.getSearchField(); // Returnare camp text pentru cautare
+        return searchPanel.getSearchField();
     }
 
     public void updateDateTimeLabel(JLabel DTLabel) {
-        updateDTLabel = new DTLabel(DTLabel); // Creare instanta DTLabel
-        updateDTLabel.start(); // Pornire actualizare data si ora
+        updateDTLabel = new DTLabel(DTLabel);
+        updateDTLabel.start();
     }
 
     public void showError(String message) {
-        JOptionPane.showMessageDialog(this, message, "Eroare", JOptionPane.ERROR_MESSAGE); // Afisare mesaj de eroare
+        JOptionPane.showMessageDialog(this, message, "Eroare", JOptionPane.ERROR_MESSAGE);
     }
 
     public void showMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Informatie", JOptionPane.INFORMATION_MESSAGE); // Afisare mesaj informativ
+        JOptionPane.showMessageDialog(this, message, "Informatie", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public Cos_Cumparaturi getCosCumparaturi() {
-        return cosCumparaturi; // Returnare obiect Cos_Cumparaturi
+        return cosCumparaturi;
     }
-    
+
     private void createPopupSterge() {
-        popupStergeProdus = new Table_Listeners(this).createPopup(); // Creare popup pentru stergerea produsului
+        popupStergeProdus = new Table_Listeners(this).createPopup();
     }
 }

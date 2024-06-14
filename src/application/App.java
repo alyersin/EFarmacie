@@ -7,14 +7,12 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        try { 
-            // Creaza o instanta dupa Login_Panel
+        try {
             Login_Panel lp = new Login_Panel();
-            lp.setSize(800, 600); // Seteaza dimensiunea
-            lp.setVisible(true); // Face panoul vizibil
-            lp.setLocationRelativeTo(null); // Pozitioneaza panoul in centru
+            lp.setSize(800, 600);
+            lp.setVisible(true);
+            lp.setLocationRelativeTo(null);
         } catch (Exception e) {
-            // Afiseaza un mesaj de eroare daca apare o exceptie
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }

@@ -9,137 +9,128 @@ import java.io.IOException;
 public class Produs_Panel extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private JTextField numeField, compozitieField, indicatiiField, contraindicatiiField, modAdminField, stocField, pretField; // Declarare campuri pentru detaliile produsului
-    private MainFrame mainFrame; // Referinta la obiectul MainFrame
+    private JTextField numeField, compozitieField, indicatiiField, contraindicatiiField, modAdminField, stocField, pretField;
+    private MainFrame mainFrame;
 
-    // Constructor pentru initializarea panoului de produs (NOU) cu referinta la MainFrame
     public Produs_Panel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame; // Initializare referinta mainFrame
+        this.mainFrame = mainFrame;
         setBackground(Color.LIGHT_GRAY);
-        displayProdusPanel(); // Configurarea panoului
+        displayProdusPanel();
     }
 
-    // Constructor pentru initializarea panoului de produs (CARE EXISTA) cu detalii predefinite si referinta la MainFrame
-    public Produs_Panel(MainFrame mainFrame, String nume, String compozitie, String indicatii, String contraindicatii, String modAdmin
-    		, String stoc, String pret) {
-        this.mainFrame = mainFrame; // Initializare referinta mainFrame
+    public Produs_Panel(MainFrame mainFrame, String nume, String compozitie, String indicatii, String contraindicatii, String modAdmin, String stoc, String pret) {
+        this.mainFrame = mainFrame;
         setBackground(Color.LIGHT_GRAY);
-        displayProdusPanel(); // Configurarea panoului
-        numeField.setText(nume); // Setare text pentru campul nume
-        compozitieField.setText(compozitie); // Setare text pentru campul compozitie
-        indicatiiField.setText(indicatii); // Setare text pentru campul indicatii
-        contraindicatiiField.setText(contraindicatii); // Setare text pentru campul contraindicatii
-        modAdminField.setText(modAdmin); // Setare text pentru campul mod de administrare
-        stocField.setText(stoc); // Setare text pentru campul stoc
-        pretField.setText(pret); // Setare text pentru campul pret
+        displayProdusPanel();
+        numeField.setText(nume);
+        compozitieField.setText(compozitie);
+        indicatiiField.setText(indicatii);
+        contraindicatiiField.setText(contraindicatii);
+        modAdminField.setText(modAdmin);
+        stocField.setText(stoc);
+        pretField.setText(pret);
     }
 
-    // Metoda pentru configurarea panoului
     private void displayProdusPanel() {
-        setLayout(null); // Setare layout nul pentru pozitionare manuala a componentelor
-        setPreferredSize(new Dimension(400, 350)); // Setare dimensiune preferata a panoului
+        setLayout(null);
+        setPreferredSize(new Dimension(400, 350));
 
-        // Creare si adaugare componente la panou
-        JLabel numeLabel = new JLabel("Nume:"); // Creare eticheta pentru nume
-        numeLabel.setBounds(10, 10, 100, 30); // Setare pozitie si dimensiune
-        numeField = new JTextField(); // Creare camp text pentru nume
-        numeField.setBounds(120, 10, 200, 30); // Setare pozitie si dimensiune
+        JLabel numeLabel = new JLabel("Nume:");
+        numeLabel.setBounds(10, 10, 100, 30);
+        numeField = new JTextField();
+        numeField.setBounds(120, 10, 200, 30);
 
-        JLabel compozitieLabel = new JLabel("Compozitie:"); // Creare eticheta pentru compozitie
-        compozitieLabel.setBounds(10, 50, 100, 30); // Setare pozitie si dimensiune
-        compozitieField = new JTextField(); // Creare camp text pentru compozitie
-        compozitieField.setBounds(120, 50, 200, 30); // Setare pozitie si dimensiune
+        JLabel compozitieLabel = new JLabel("Compozitie:");
+        compozitieLabel.setBounds(10, 50, 100, 30);
+        compozitieField = new JTextField();
+        compozitieField.setBounds(120, 50, 200, 30);
 
-        JLabel indicatiiLabel = new JLabel("Indicatii:"); // Creare eticheta pentru indicatii
-        indicatiiLabel.setBounds(10, 90, 100, 30); // Setare pozitie si dimensiune
-        indicatiiField = new JTextField(); // Creare camp text pentru indicatii
-        indicatiiField.setBounds(120, 90, 200, 30); // Setare pozitie si dimensiune
+        JLabel indicatiiLabel = new JLabel("Indicatii:");
+        indicatiiLabel.setBounds(10, 90, 100, 30);
+        indicatiiField = new JTextField();
+        indicatiiField.setBounds(120, 90, 200, 30);
 
-        JLabel contraindicatiiLabel = new JLabel("Contraindicatii:"); // Creare eticheta pentru contraindicatii
-        contraindicatiiLabel.setBounds(10, 130, 100, 30); // Setare pozitie si dimensiune
-        contraindicatiiField = new JTextField(); // Creare camp text pentru contraindicatii
-        contraindicatiiField.setBounds(120, 130, 200, 30); // Setare pozitie si dimensiune
+        JLabel contraindicatiiLabel = new JLabel("Contraindicatii:");
+        contraindicatiiLabel.setBounds(10, 130, 100, 30);
+        contraindicatiiField = new JTextField();
+        contraindicatiiField.setBounds(120, 130, 200, 30);
 
-        JLabel modLabel = new JLabel("Mod de administrare:"); // Creare eticheta pentru mod de administrare
-        modLabel.setBounds(10, 170, 140, 30); // Setare pozitie si dimensiune
-        modAdminField = new JTextField(); // Creare camp text pentru mod de administrare
-        modAdminField.setBounds(160, 170, 200, 30); // Setare pozitie si dimensiune
+        JLabel modLabel = new JLabel("Mod de administrare:");
+        modLabel.setBounds(10, 170, 140, 30);
+        modAdminField = new JTextField();
+        modAdminField.setBounds(160, 170, 200, 30);
 
-        JLabel stocLabel = new JLabel("Stoc:"); // Creare eticheta pentru stoc
-        stocLabel.setBounds(10, 210, 100, 30); // Setare pozitie si dimensiune
-        stocField = new JTextField(); // Creare camp text pentru stoc
-        stocField.setBounds(120, 210, 200, 30); // Setare pozitie si dimensiune
+        JLabel stocLabel = new JLabel("Stoc:");
+        stocLabel.setBounds(10, 210, 100, 30);
+        stocField = new JTextField();
+        stocField.setBounds(120, 210, 200, 30);
 
-        JLabel pretLabel = new JLabel("Pret:"); // Creare eticheta pentru pret
-        pretLabel.setBounds(10, 250, 100, 30); // Setare pozitie si dimensiune
-        pretField = new JTextField(); // Creare camp text pentru pret
-        pretField.setBounds(120, 250, 200, 30); // Setare pozitie si dimensiune
+        JLabel pretLabel = new JLabel("Pret:");
+        pretLabel.setBounds(10, 250, 100, 30);
+        pretField = new JTextField();
+        pretField.setBounds(120, 250, 200, 30);
 
-        JButton adaugaInCosButton = new JButton("Adauga produs in cos"); // Creare buton pentru adaugarea produsului in cos
-        adaugaInCosButton.setBounds(120, 290, 200, 30); // Setare pozitie si dimensiune
-        adaugaInCosButton.addActionListener(e -> adaugaProdusInCos()); // Adaugare ascultator pentru buton
+        JButton adaugaInCosButton = new JButton("Adauga produs in cos");
+        adaugaInCosButton.setBounds(120, 290, 200, 30);
+        adaugaInCosButton.addActionListener(e -> adaugaProdusInCos());
 
-        add(numeLabel); // Adaugare eticheta nume la panou
-        add(numeField); // Adaugare camp text nume la panou
-        add(compozitieLabel); // Adaugare eticheta compozitie la panou
-        add(compozitieField); // Adaugare camp text compozitie la panou
-        add(indicatiiLabel); // Adaugare eticheta indicatii la panou
-        add(indicatiiField); // Adaugare camp text indicatii la panou
-        add(contraindicatiiLabel); // Adaugare eticheta contraindicatii la panou
-        add(contraindicatiiField); // Adaugare camp text contraindicatii la panou
-        add(modLabel); // Adaugare eticheta mod de administrare la panou
-        add(modAdminField); // Adaugare camp text mod de administrare la panou
-        add(stocLabel); // Adaugare eticheta stoc la panou
-        add(stocField); // Adaugare camp text stoc la panou
-        add(pretLabel); // Adaugare eticheta pret la panou
-        add(pretField); // Adaugare camp text pret la panou
-        add(adaugaInCosButton); // Adaugare buton adauga in cos la panou
+        add(numeLabel);
+        add(numeField);
+        add(compozitieLabel);
+        add(compozitieField);
+        add(indicatiiLabel);
+        add(indicatiiField);
+        add(contraindicatiiLabel);
+        add(contraindicatiiField);
+        add(modLabel);
+        add(modAdminField);
+        add(stocLabel);
+        add(stocField);
+        add(pretLabel);
+        add(pretField);
+        add(adaugaInCosButton);
     }
 
-    // Getteri pentru campurile de text
- // Metoda pentru obtinerea campului de text pentru nume
     public JTextField getNumeField() {
-        return numeField; // Returneaza campul de text pentru nume
+        return numeField;
     }
-    // Metoda pentru obtinerea campului de text pentru compozitie
+
     public JTextField getCompozitieField() {
-        return compozitieField; // Returneaza campul de text pentru compozitie
+        return compozitieField;
     }
-    // Metoda pentru obtinerea campului de text pentru indicatii
+
     public JTextField getIndicatiiField() {
-        return indicatiiField; // Returneaza campul de text pentru indicatii
+        return indicatiiField;
     }
-    // Metoda pentru obtinerea campului de text pentru contraindicatii
+
     public JTextField getContraindicatiiField() {
-        return contraindicatiiField; // Returneaza campul de text pentru contraindicatii
+        return contraindicatiiField;
     }
-    // Metoda pentru obtinerea campului de text pentru modul de administrare
+
     public JTextField getModAdminField() {
-        return modAdminField; // Returneaza campul de text pentru modul de administrare
+        return modAdminField;
     }
-    // Metoda pentru obtinerea campului de text pentru stoc
+
     public JTextField getStocField() {
-        return stocField; // Returneaza campul de text pentru stoc
+        return stocField;
     }
-    // Metoda pentru obtinerea campului de text pentru pret
+
     public JTextField getPretField() {
-        return pretField; // Returneaza campul de text pentru pret
+        return pretField;
     }
 
-    // Metoda pentru adaugarea unui produs nou
     public void adaugaProdusStoc() {
-        Produs_Panel produsPanel = new Produs_Panel(mainFrame); // Creare instanta Produs_Panel
+        Produs_Panel produsPanel = new Produs_Panel(mainFrame);
         int result = JOptionPane.showConfirmDialog(null, produsPanel, "Adauga Produs",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE); // Afisare dialog pentru adaugarea produsului
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (result == JOptionPane.OK_OPTION) { // Daca utilizatorul a apasat OK
-            handleAdaugaProdus(produsPanel); // Apeleaza metoda de gestionare a adaugarii produsului
+        if (result == JOptionPane.OK_OPTION) {
+            handleAdaugaProdus(produsPanel);
         }
     }
 
-    // Metoda pentru gestionarea adaugarii unui produs
     private void handleAdaugaProdus(Produs_Panel produsPanel) {
-        String calculeazaTVA = calculeazaTVA(produsPanel.getPretField().getText()); // Calculare pret cu TVA
+        String calculeazaTVA = calculeazaTVA(produsPanel.getPretField().getText());
 
         mainFrame.getModelTabelDefault().addRow(new Object[]{
                 produsPanel.getNumeField().getText(),
@@ -149,37 +140,33 @@ public class Produs_Panel extends JPanel {
                 produsPanel.getModAdminField().getText(),
                 produsPanel.getStocField().getText(),
                 calculeazaTVA
-        }); // Adaugare rand nou in modelul tabelului
+        });
 
         salveazaProdusFisier(produsPanel.getNumeField().getText(), produsPanel.getCompozitieField().getText(),
                 produsPanel.getIndicatiiField().getText(), produsPanel.getContraindicatiiField().getText(),
-                produsPanel.getModAdminField().getText(), produsPanel.getStocField().getText(), calculeazaTVA); // Salvare produs in fisier
+                produsPanel.getModAdminField().getText(), produsPanel.getStocField().getText(), calculeazaTVA);
     }
 
-    // Metoda pentru calcularea TVA-ului
     private String calculeazaTVA(String pret) {
         try {
-            double pretInitial = Double.parseDouble(pret); // Convertire pret initial la double
-            double pretCuTVA = pretInitial * 1.10; // Calculare pret cu TVA
-            return String.format("%.2f", pretCuTVA); // Returnare pret cu TVA formatat
+            double pretInitial = Double.parseDouble(pret);
+            double pretCuTVA = pretInitial * 1.10;
+            return String.format("%.2f", pretCuTVA);
         } catch (NumberFormatException e) {
-            mainFrame.showError("Format pret invalid"); // Afisare mesaj de eroare pentru format pret invalid
-            return pret; // Returnare pret initial
+            mainFrame.showError("Format pret invalid");
+            return pret;
         }
     }
 
-    // Metoda pentru salvarea produsului in fisier
-    private void salveazaProdusFisier(String nume, String compozitie, String indicatii,
-                                      String contraindicatii, String modAdmin, String stoc, String pret) {
-        try (BufferedWriter bWriter = new BufferedWriter(new FileWriter("stoc.txt", true))) { //Am folosit bwriter si fwriter pentru eficienta (se putea folosi si doar 1 din ele)
-            bWriter.write(nume + ":" + compozitie + ":" + indicatii + ":" + contraindicatii + ":" + modAdmin + ":" + stoc + ":" + pret); // Scriere produs in fisier
-            bWriter.newLine(); // Linie noua
+    private void salveazaProdusFisier(String nume, String compozitie, String indicatii, String contraindicatii, String modAdmin, String stoc, String pret) {
+        try (BufferedWriter bWriter = new BufferedWriter(new FileWriter("stoc.txt", true))) {
+            bWriter.write(nume + ":" + compozitie + ":" + indicatii + ":" + contraindicatii + ":" + modAdmin + ":" + stoc + ":" + pret);
+            bWriter.newLine();
         } catch (IOException e) {
-            mainFrame.showError("Eroare: " + e.getMessage()); // Afisare mesaj de eroare
+            mainFrame.showError("Eroare: " + e.getMessage());
         }
     }
 
-    // Metoda pentru deschiderea panoului de detalii produs pentru editare
     public void deschideDetailPanel(MainFrame mainFrame, int row) {
         Produs_Panel detailPanel = new Produs_Panel(mainFrame,
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 0),
@@ -189,45 +176,43 @@ public class Produs_Panel extends JPanel {
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 4),
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 5),
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 6)
-        ); // Creare instanta Produs_Panel cu detalii produs
+        );
 
         int clicked = JOptionPane.showConfirmDialog(null, detailPanel, "Editare Produs",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE); // Afisare dialog pentru editarea produsului
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (clicked == JOptionPane.OK_OPTION) { // Daca utilizatorul a apasat OK
-            editeazaProdus(detailPanel, row); // Apeleaza metoda de gestionare a editarii produsului
+        if (clicked == JOptionPane.OK_OPTION) {
+            editeazaProdus(detailPanel, row);
         }
     }
 
-    // Metoda pentru gestionarea editarii unui produs
     private void editeazaProdus(Produs_Panel detailPanel, int row) {
-        String pretInitial = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6); // Arata pretul vechi din tabel
-        String pretNou = detailPanel.getPretField().getText(); //Arata pretul din fereastra de editare
-        String pretFinal = pretInitial.equals(pretNou) ? pretInitial : calculeazaTVA(pretNou); // Daca pretul a fost schimbat, calculeaza pretul cu TVA
+        String pretInitial = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6);
+        String pretNou = detailPanel.getPretField().getText();
+        String pretFinal = pretInitial.equals(pretNou) ? pretInitial : calculeazaTVA(pretNou);
 
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getNumeField().getText(), row, 0); // Seteaza noua valoare pentru nume
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getCompozitieField().getText(), row, 1); // Seteaza noua valoare pentru compozitie
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getIndicatiiField().getText(), row, 2); // Seteaza noua valoare pentru indicatii
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getContraindicatiiField().getText(), row, 3); // Seteaza noua valoare pentru contraindicatii
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getModAdminField().getText(), row, 4); // Seteaza noua valoare pentru mod de administrare
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getStocField().getText(), row, 5); // Seteaza noua valoare pentru stoc
-        mainFrame.getModelTabelDefault().setValueAt(pretFinal, row, 6); // Seteaza noua valoare pentru pret
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getNumeField().getText(), row, 0);
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getCompozitieField().getText(), row, 1);
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getIndicatiiField().getText(), row, 2);
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getContraindicatiiField().getText(), row, 3);
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getModAdminField().getText(), row, 4);
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getStocField().getText(), row, 5);
+        mainFrame.getModelTabelDefault().setValueAt(pretFinal, row, 6);
 
-        new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault()); // Salvare toate datele in fisier
+        new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault());
     }
 
-    // Metoda pentru adaugarea unui produs in cos
     private void adaugaProdusInCos() {
         String[] produs = new String[]{
-                numeField.getText(), // Obtine numele produsului
-                compozitieField.getText(), // Obtine compozitia produsului
-                indicatiiField.getText(), // Obtine indicatiile produsului
-                contraindicatiiField.getText(), // Obtine contraindicatiile produsului
-                modAdminField.getText(), // Obtine modul de administrare al produsului
-                stocField.getText(), // Obtine stocul produsului
-                pretField.getText() // Obtine pretul produsului
+                numeField.getText(),
+                compozitieField.getText(),
+                indicatiiField.getText(),
+                contraindicatiiField.getText(),
+                modAdminField.getText(),
+                stocField.getText(),
+                pretField.getText()
         };
-        mainFrame.getCosProduse().add(produs); // Adaugare produs in cos
-        mainFrame.showMessage("Produs adagat in cos"); // Afisare mesaj de confirmare
+        mainFrame.getCosProduse().add(produs);
+        mainFrame.showMessage("Produs adagat in cos");
     }
 }
