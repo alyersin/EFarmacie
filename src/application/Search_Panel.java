@@ -73,7 +73,7 @@ public class Search_Panel extends JPanel {
                     if (valoareaDinCelula != null && valoareaDinCelula.toLowerCase().contains(elementCautat)) { // Verifica daca valoarea celulei nu este null si contine termenul de cautare
                         mainFrame.getTabelStoc().setRowSelectionInterval(rowIdx, rowIdx); // Selecteaza randul gasit in tabel
                         mainFrame.getTabelStoc().scrollRectToVisible(mainFrame.getTabelStoc().getCellRect(rowIdx, colIdx, true)); // Deruleaza pentru a face vizibila celula selectata
-                        mainFrame.getTabelStoc().setSelectionBackground(Color.BLUE); // Seteaza fundalul selectiei la culoarea albastra
+                        mainFrame.getTabelStoc().setSelectionBackground(Color.LIGHT_GRAY); // Seteaza fundalul selectiei la culoarea albastra
                         ultimaLinieGasita = rowIdx + 1; // Actualizeaza ultimaLinieGasita pentru a continua cautarea de la randul urmator
                         gasit = true; // Seteaza flag-ul gasit la true
                         break; // Iese din bucla coloanelor

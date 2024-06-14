@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     private JTable tabelStoc; // Tabelul pentru stoc
     private List<String[]> cosProduse; // Lista de produse in cos
     private Search_Panel searchPanel; // Panoul de cautare
-    private Medic_Panel sidePanel; // Panoul lateral pentru medic
+    private Medic_Panel medicPanel; // Panoul lateral pentru medic
     private DTLabel updateDTLabel; // Eticheta pentru actualizarea datei si orei
     private JPopupMenu popupStergeProdus; // Meniul popup pentru stergerea produsului
     private Cos_Cumparaturi cosCumparaturi; // Obiect pentru gestionarea cosului de cumparaturi
@@ -58,13 +58,13 @@ public class MainFrame extends JFrame {
 
     private void initializarePanels() {
         searchPanel = new Search_Panel(this); // Creare panou de cautare
-        sidePanel = new Medic_Panel(this, cosCumparaturi); // Creare panou lateral pentru medic
+        medicPanel = new Medic_Panel(this, cosCumparaturi); // Creare panou lateral pentru medic
 
         searchPanel.setBounds(0, 0, 800, 800); // Setare pozitie si dimensiune panou cautare
-        sidePanel.setBounds(810, 0, 340, 800); // Setare pozitie si dimensiune panou lateral
+        medicPanel.setBounds(810, 0, 340, 800); // Setare pozitie si dimensiune panou lateral
 
         add(searchPanel); // Adaugare panou cautare in fereastra principala
-        add(sidePanel); // Adaugare panou lateral in fereastra principala
+        add(medicPanel); // Adaugare panou lateral in fereastra principala
     }
 
     public DefaultTableModel getModelTabelDefault() {

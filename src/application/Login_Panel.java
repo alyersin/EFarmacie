@@ -15,8 +15,8 @@ public class Login_Panel extends JFrame implements ActionListener {
     public JLabel userLabel, passLabel; // Etichete pentru campurile de text
     public JTextField userField; // Camp text pentru utilizator
     public JPasswordField passField; // Camp text pentru parola
-    public List<String> usersArray; // Lista pentru username-uri
-    public List<String> passwordsArray; // Lista pentru parole
+    private List<String> usersArray; // Lista pentru username-uri
+    private List<String> passwordsArray; // Lista pentru parole
 
     Login_Panel() {
     	

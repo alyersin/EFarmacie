@@ -16,14 +16,14 @@ public class Produs_Panel extends JPanel {
     public Produs_Panel(MainFrame mainFrame) {
         this.mainFrame = mainFrame; // Initializare referinta mainFrame
         setBackground(Color.LIGHT_GRAY);
-        setupPanel(); // Configurarea panoului
+        displayProdusPanel(); // Configurarea panoului
     }
 
     // Constructor pentru initializarea panoului de produs (CARE EXISTA) cu detalii predefinite si referinta la MainFrame
     public Produs_Panel(MainFrame mainFrame, String nume, String compozitie, String indicatii, String contraindicatii, String mod, String stoc, String pret) {
         this.mainFrame = mainFrame; // Initializare referinta mainFrame
         setBackground(Color.LIGHT_GRAY);
-        setupPanel(); // Configurarea panoului
+        displayProdusPanel(); // Configurarea panoului
         numeField.setText(nume); // Setare text pentru campul nume
         compozitieField.setText(compozitie); // Setare text pentru campul compozitie
         indicatiiField.setText(indicatii); // Setare text pentru campul indicatii
@@ -34,7 +34,7 @@ public class Produs_Panel extends JPanel {
     }
 
     // Metoda pentru configurarea panoului
-    private void setupPanel() {
+    private void displayProdusPanel() {
         setLayout(null); // Setare layout nul pentru pozitionare manuala a componentelor
         setPreferredSize(new Dimension(400, 350)); // Setare dimensiune preferata a panoului
 
@@ -113,7 +113,7 @@ public class Produs_Panel extends JPanel {
         return contraindicatiiField; // Returneaza campul de text pentru contraindicatii
     }
     // Metoda pentru obtinerea campului de text pentru modul de administrare
-    public JTextField getModField() {
+    public JTextField getModAdminField() {
         return modAdminField; // Returneaza campul de text pentru modul de administrare
     }
     // Metoda pentru obtinerea campului de text pentru stoc
@@ -145,14 +145,14 @@ public class Produs_Panel extends JPanel {
                 produsPanel.getCompozitieField().getText(),
                 produsPanel.getIndicatiiField().getText(),
                 produsPanel.getContraindicatiiField().getText(),
-                produsPanel.getModField().getText(),
+                produsPanel.getModAdminField().getText(),
                 produsPanel.getStocField().getText(),
                 calculeazaTVA
         }); // Adaugare rand nou in modelul tabelului
 
         salveazaProdusFisier(produsPanel.getNumeField().getText(), produsPanel.getCompozitieField().getText(),
                 produsPanel.getIndicatiiField().getText(), produsPanel.getContraindicatiiField().getText(),
-                produsPanel.getModField().getText(), produsPanel.getStocField().getText(), calculeazaTVA); // Salvare produs in fisier
+                produsPanel.getModAdminField().getText(), produsPanel.getStocField().getText(), calculeazaTVA); // Salvare produs in fisier
     }
 
     // Metoda pentru calcularea TVA-ului
@@ -202,15 +202,15 @@ public class Produs_Panel extends JPanel {
     private void editeazaProdus(Produs_Panel detailPanel, int row) {
         String pretInitial = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6); // Arata pretul vechi din tabel
         String pretNou = detailPanel.getPretField().getText(); //Arata pretul din fereastra de editare
-        String finalPrice = pretInitial.equals(pretNou) ? pretInitial : calculeazaTVA(pretNou); // Daca pretul a fost schimbat, calculeaza pretul cu TVA
+        String pretFinal = pretInitial.equals(pretNou) ? pretInitial : calculeazaTVA(pretNou); // Daca pretul a fost schimbat, calculeaza pretul cu TVA
 
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getNumeField().getText(), row, 0); // Seteaza noua valoare pentru nume
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getCompozitieField().getText(), row, 1); // Seteaza noua valoare pentru compozitie
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getIndicatiiField().getText(), row, 2); // Seteaza noua valoare pentru indicatii
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getContraindicatiiField().getText(), row, 3); // Seteaza noua valoare pentru contraindicatii
-        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getModField().getText(), row, 4); // Seteaza noua valoare pentru mod de administrare
+        mainFrame.getModelTabelDefault().setValueAt(detailPanel.getModAdminField().getText(), row, 4); // Seteaza noua valoare pentru mod de administrare
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getStocField().getText(), row, 5); // Seteaza noua valoare pentru stoc
-        mainFrame.getModelTabelDefault().setValueAt(finalPrice, row, 6); // Seteaza noua valoare pentru pret
+        mainFrame.getModelTabelDefault().setValueAt(pretFinal, row, 6); // Seteaza noua valoare pentru pret
 
         new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault()); // Salvare toate datele in fisier
     }
