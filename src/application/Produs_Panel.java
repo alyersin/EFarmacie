@@ -154,21 +154,21 @@ public class Produs_Panel extends JPanel {
     }
 
     // Metoda pentru calcularea TVA-ului
-    private String calculeazaTVA(String price) {
+    private String calculeazaTVA(String pret) {
         try {
-            double pretInitial = Double.parseDouble(price); // Convertire pret initial la double
+            double pretInitial = Double.parseDouble(pret); // Convertire pret initial la double
             double pretCuTVA = pretInitial * 1.10; // Calculare pret cu TVA
             return String.format("%.2f", pretCuTVA); // Returnare pret cu TVA formatat
         } catch (NumberFormatException e) {
             mainFrame.showError("Format pret invalid"); // Afisare mesaj de eroare pentru format pret invalid
-            return price; // Returnare pret initial
+            return pret; // Returnare pret initial
         }
     }
 
     // Metoda pentru salvarea produsului in fisier
     private void salveazaProdusFisier(String nume, String compozitie, String indicatii,
                                       String contraindicatii, String mod, String stoc, String pret) {
-        try (BufferedWriter bWriter = new BufferedWriter(new FileWriter("stoc.txt", true))) {
+        try (BufferedWriter bWriter = new BufferedWriter(new FileWriter("stoc.txt", true))) { //Am folosit bwriter si fwriter pentru eficienta (se putea folosi si doar 1 din ele)
             bWriter.write(nume + ":" + compozitie + ":" + indicatii + ":" + contraindicatii + ":" + mod + ":" + stoc + ":" + pret); // Scriere produs in fisier
             bWriter.newLine(); // Linie noua
         } catch (IOException e) {
@@ -177,7 +177,7 @@ public class Produs_Panel extends JPanel {
     }
 
     // Metoda pentru deschiderea panoului de detalii produs pentru editare
-    public void openDetailPanel(MainFrame mainFrame, int row) {
+    public void deschideDetailPanel(MainFrame mainFrame, int row) {
         Produs_Panel detailPanel = new Produs_Panel(mainFrame,
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 0),
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 1),
@@ -188,19 +188,19 @@ public class Produs_Panel extends JPanel {
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 6)
         ); // Creare instanta Produs_Panel cu detalii produs
 
-        int result = JOptionPane.showConfirmDialog(null, detailPanel, "Editare Produs",
+        int clicked = JOptionPane.showConfirmDialog(null, detailPanel, "Editare Produs",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE); // Afisare dialog pentru editarea produsului
 
-        if (result == JOptionPane.OK_OPTION) { // Daca utilizatorul a apasat OK
+        if (clicked == JOptionPane.OK_OPTION) { // Daca utilizatorul a apasat OK
             handleEditProduct(detailPanel, row); // Apeleaza metoda de gestionare a editarii produsului
         }
     }
 
     // Metoda pentru gestionarea editarii unui produs
     private void handleEditProduct(Produs_Panel detailPanel, int row) {
-        String oldPrice = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6); // Obtine pretul vechi
-        String newPrice = detailPanel.getPretField().getText(); // Obtine noul pret
-        String finalPrice = oldPrice.equals(newPrice) ? oldPrice : calculeazaTVA(newPrice); // Daca pretul a fost schimbat, calculeaza pretul cu TVA
+        String pretInitial = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6); // Arata pretul vechi din tabel
+        String pretNou = detailPanel.getPretField().getText(); //Arata pretul din fereastra de editare
+        String finalPrice = pretInitial.equals(pretNou) ? pretInitial : calculeazaTVA(pretNou); // Daca pretul a fost schimbat, calculeaza pretul cu TVA
 
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getNumeField().getText(), row, 0); // Seteaza noua valoare pentru nume
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getCompozitieField().getText(), row, 1); // Seteaza noua valoare pentru compozitie

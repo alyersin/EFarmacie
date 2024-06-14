@@ -18,7 +18,7 @@ public class Table_Listeners {
                 if (e.getClickCount() == 2) { // Verifica daca s-a facut dublu click
                     int row = mainFrame.getTabelStoc().getSelectedRow(); // Obtine randul selectat
                     if (row != -1) { // Verifica daca randul selectat este valid
-                        new Produs_Panel(mainFrame).openDetailPanel(mainFrame, row); // Deschide panoul de detalii pentru produsul selectat
+                        new Produs_Panel(mainFrame).deschideDetailPanel(mainFrame, row); // Deschide panoul de detalii pentru produsul selectat
                     }
                 }
             }
