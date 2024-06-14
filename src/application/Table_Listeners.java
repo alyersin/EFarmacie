@@ -40,10 +40,10 @@ public class Table_Listeners {
         JPopupMenu popup = new JPopupMenu(); // Creare meniu popup
         JMenuItem stergeItem = new JMenuItem("Sterge"); // Creare item de meniu pentru stergere
         stergeItem.addActionListener(e -> {
-            int selectedRow = mainFrame.getTabelStoc().getSelectedRow(); // Obtine randul selectat
-            if (selectedRow != -1) { // Verifica daca randul selectat este valid
-                mainFrame.getModelTabelDefault().removeRow(selectedRow); // Sterge randul din model
-                new Stoc_Farmacie().saveAllDataToFile(mainFrame.getModelTabelDefault()); // Salveaza toate datele in fisier
+            int randSelectat = mainFrame.getTabelStoc().getSelectedRow(); // Obtine randul selectat
+            if (randSelectat != -1) { // Verifica daca randul selectat este valid
+                mainFrame.getModelTabelDefault().removeRow(randSelectat); // Sterge randul din model
+                new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault()); // Salveaza toate datele in fisier
             }
         });
         popup.add(stergeItem); // Adauga itemul de meniu la popup

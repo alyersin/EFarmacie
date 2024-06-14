@@ -2,6 +2,8 @@ package application;
 
 import javax.swing.*;
 import javax.swing.table.*;
+
+import java.awt.Color;
 import java.util.*;
 import java.util.List;
 
@@ -17,11 +19,13 @@ public class MainFrame extends JFrame {
     private Cos_Cumparaturi cosCumparaturi; // Obiect pentru gestionarea cosului de cumparaturi
 
     public MainFrame() {
+    	setResizable(false);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Setare actiune inchidere fereastra
         setTitle("EFarmacie"); // Setare titlu fereastra
         setSize(1160, 800); // Setare dimensiune fereastra
         setLocationRelativeTo(null); // Setare locatie fereastra in centru
         setLayout(null); // Setare layout nul
+        getContentPane().setBackground(Color.LIGHT_GRAY);
 
         cosProduse = new ArrayList<>(); // Initializare lista de produse in cos
         cosCumparaturi = new Cos_Cumparaturi(cosProduse); // Initializare obiect Cos_Cumparaturi

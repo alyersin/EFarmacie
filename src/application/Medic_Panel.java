@@ -1,6 +1,8 @@
 package application;
 
 import javax.swing.*;
+
+import java.awt.Color;
 import java.io.*;
 
 public class Medic_Panel extends JPanel {
@@ -12,25 +14,31 @@ public class Medic_Panel extends JPanel {
     public Medic_Panel(MainFrame mainFrame, Cos_Cumparaturi cosCumparaturi) {
         this.mainFrame = mainFrame; // Initializare referinta mainFrame
         setLayout(null); // Setare layout nul
-        setupComponents(); // Configurarea componentelor
+        displayMedicComponents(); // Configurarea componentelor
+        setBackground(Color.LIGHT_GRAY);
     }
 
-    private void setupComponents() {
+    private void displayMedicComponents() {
         JLabel nrRetetaLabel = generatorLabel("Nr. reteta:", 20, 20); // Creare eticheta pentru nr. reteta
-        nrRetetaField = generatorTextField(120, 20); // Creare camp text pentru nr. reteta
+        nrRetetaField = generatorTextField(90, 20); // Creare camp text pentru nr. reteta
 
         JLabel numeLabel = generatorLabel("Nume:", 20, 60); // Creare eticheta pentru nume
-        numeMedicField = generatorTextField(120, 60); // Creare camp text pentru nume
+        numeMedicField = generatorTextField(90, 60); // Creare camp text pentru nume
 
         JLabel prenumeLabel = generatorLabel("Prenume:", 20, 100); // Creare eticheta pentru prenume
-        prenumeMedicField = generatorTextField(120, 100); // Creare camp text pentru prenume
+        prenumeMedicField = generatorTextField(90, 100); // Creare camp text pentru prenume
 
         JLabel codMedicLabel = generatorLabel("Cod Medic:", 20, 140); // Creare eticheta pentru cod medic
-        codMedicField = generatorTextField(120, 140); // Creare camp text pentru cod medic
+        codMedicField = generatorTextField(90, 140); // Creare camp text pentru cod medic
 
         JButton submitButton = new JButton("Submit"); // Creare buton pentru submit
-        submitButton.setBounds(120, 180, 100, 30); // Setare pozitie si dimensiune buton
+        submitButton.setBounds(90, 180, 100, 30); // Setare pozitie si dimensiune buton
         submitButton.addActionListener(e -> saveInputsToFile()); // Adaugare ascultator pentru buton
+        
+        
+        ImageIcon logo = new ImageIcon("ePharmacy_logo1.png"); // Load the image
+        JLabel logoLabel = new JLabel(logo); // Create a JLabel with the image
+        logoLabel.setBounds(40, 340, 240, 240); // Set position and size (adjust as needed)
 
         add(nrRetetaLabel); // Adaugare eticheta nr. reteta in panou
         add(nrRetetaField); // Adaugare camp text nr. reteta in panou
@@ -41,6 +49,7 @@ public class Medic_Panel extends JPanel {
         add(codMedicLabel); // Adaugare eticheta cod medic in panou
         add(codMedicField); // Adaugare camp text cod medic in panou
         add(submitButton); // Adaugare buton in panou
+        add(logoLabel); // Add logo to the panel
     }
 
     private void saveInputsToFile() {
@@ -58,7 +67,7 @@ public class Medic_Panel extends JPanel {
             mainFrame.showError("Eroare la salvarea retetei: " + e.getMessage()); // Afisare mesaj de eroare daca apare o exceptie la scrierea fisierului
         }
     }
-    // VARARGS = variable argument (accepts 0 / multiple arguments)
+    // VARARGS = variable argument (accepts 0 or multiple arguments)
     private void clearTextFields(JTextField... fields) {
         for (JTextField field : fields) {
             field.setText(""); // Stergere text din fiecare camp

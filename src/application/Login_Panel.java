@@ -1,6 +1,8 @@
 package application;
 
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -18,26 +20,28 @@ public class Login_Panel extends JFrame implements ActionListener {
 
     Login_Panel() {
     	
-        loadAccounts("accounts.txt"); // Apelare metoda pentru incarcarea conturilor din fisier
+        incarcaConturi("accounts.txt"); // Apelare metoda pentru incarcarea conturilor din fisier
     	
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Setare actiune inchidere fereastra
-        setTitle("LOGIN"); // Setare titlu fereastra
+        setTitle("AUTENTIFICARE"); // Setare titlu fereastra
         setSize(400, 300); // Setare dimensiune fereastra
-
+        
+        getContentPane().setBackground(Color.LIGHT_GRAY);
         getContentPane().setLayout(null);  // Setare layout nul pentru utilizarea coordonatelor absolute
 
-        userLabel = new JLabel("username"); // Creare eticheta pentru utilizator
-        userLabel.setBounds(100, 100, 80, 30); // Setare pozitie si dimensiune eticheta
+        userLabel = new JLabel("User"); // Creare eticheta pentru utilizator
+        userLabel.setBounds(240, 170, 80, 30); // Setare pozitie si dimensiune eticheta
         userField = new JTextField(15); // Creare camp text pentru utilizator cu lungime maxima de 15 caractere
-        userField.setBounds(200, 100, 200, 30); // Setare pozitie si dimensiune camp text
+        userField.setBounds(300, 170, 200, 30); // Setare pozitie si dimensiune camp text
 
         passLabel = new JLabel("Parola"); // Creare eticheta pentru parola
-        passLabel.setBounds(100, 150, 80, 30); // Setare pozitie si dimensiune eticheta
+        passLabel.setBounds(240, 220, 80, 30); // Setare pozitie si dimensiune eticheta
         passField = new JPasswordField(15); // Creare camp text pentru parola cu lungime maxima de 15 caractere
-        passField.setBounds(200, 150, 200, 30); // Setare pozitie si dimensiune camp text
+        passField.setBounds(300, 220, 200, 30); // Setare pozitie si dimensiune camp text
 
         loginBtn = new JButton("Login"); // Creare buton pentru autentificare
-        loginBtn.setBounds(200, 200, 100, 30); // Setare pozitie si dimensiune buton
+        loginBtn.setBounds(350, 270, 100, 30); // Setare pozitie si dimensiune buton
 
         getContentPane().add(userLabel); // Adaugare eticheta utilizator in panou
         getContentPane().add(userField); // Adaugare camp text utilizator in panou
@@ -72,12 +76,12 @@ public class Login_Panel extends JFrame implements ActionListener {
             mf.setVisible(true); // Setare vizibilitate fereastra principala
             setVisible(false); // Ascundere fereastra de login
         } else {
-            showError("username / parola incorecte"); // Afisare mesaj de eroare pentru autentificare esuata
+            showError("Username / Parola incorecta"); // Afisare mesaj de eroare pentru autentificare esuata
         }
     }
 
     // Incarca conturile din accounts.txt
-    private void loadAccounts(String filePath) {
+    private void incarcaConturi(String filePath) {
         usersArray = new ArrayList<>(); // Initializare lista pentru username-uri
         passwordsArray = new ArrayList<>(); // Initializare lista pentru parole
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) { // Deschidere fisier pentru citire

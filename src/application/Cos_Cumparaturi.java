@@ -30,6 +30,7 @@ public class Cos_Cumparaturi {
     public void displayCos(Component parentComponent) {
         JPanel cosPanel = new JPanel(null); // Creare panou pentru cos cu layout nul
         cosPanel.setPreferredSize(new Dimension(800, 600)); // Setare dimensiune preferata a panoului
+        cosPanel.setBackground(Color.LIGHT_GRAY); // Setare culoare fundal
 
         DefaultTableModel tabelCosProduse = new DefaultTableModel(new Object[]{"Nume", "Indicatii", "Pret", "Cantitate", "Total"}, 0); // Creare model tabel pentru cos cu 0 rows
         JTable tabelCos = new JTable(tabelCosProduse); // Creare tabel pentru cos (dupa modelul default)

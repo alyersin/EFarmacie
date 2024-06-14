@@ -15,12 +15,14 @@ public class Produs_Panel extends JPanel {
     // Constructor pentru initializarea panoului de produs (NOU) cu referinta la MainFrame
     public Produs_Panel(MainFrame mainFrame) {
         this.mainFrame = mainFrame; // Initializare referinta mainFrame
+        setBackground(Color.LIGHT_GRAY);
         setupPanel(); // Configurarea panoului
     }
 
     // Constructor pentru initializarea panoului de produs (CARE EXISTA) cu detalii predefinite si referinta la MainFrame
     public Produs_Panel(MainFrame mainFrame, String nume, String compozitie, String indicatii, String contraindicatii, String mod, String stoc, String pret) {
         this.mainFrame = mainFrame; // Initializare referinta mainFrame
+        setBackground(Color.LIGHT_GRAY);
         setupPanel(); // Configurarea panoului
         numeField.setText(nume); // Setare text pentru campul nume
         compozitieField.setText(compozitie); // Setare text pentru campul compozitie
@@ -210,7 +212,7 @@ public class Produs_Panel extends JPanel {
         mainFrame.getModelTabelDefault().setValueAt(detailPanel.getStocField().getText(), row, 5); // Seteaza noua valoare pentru stoc
         mainFrame.getModelTabelDefault().setValueAt(finalPrice, row, 6); // Seteaza noua valoare pentru pret
 
-        new Stoc_Farmacie().saveAllDataToFile(mainFrame.getModelTabelDefault()); // Salvare toate datele in fisier
+        new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault()); // Salvare toate datele in fisier
     }
 
     // Metoda pentru adaugarea unui produs in cos
@@ -225,6 +227,6 @@ public class Produs_Panel extends JPanel {
                 pretField.getText() // Obtine pretul produsului
         };
         mainFrame.getCosProduse().add(produs); // Adaugare produs in cos
-        mainFrame.showMessage("Produsul adaugat in cos"); // Afisare mesaj de confirmare
+        mainFrame.showMessage("Produs adagat in cos"); // Afisare mesaj de confirmare
     }
 }
