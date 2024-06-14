@@ -194,12 +194,12 @@ public class Produs_Panel extends JPanel {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE); // Afisare dialog pentru editarea produsului
 
         if (clicked == JOptionPane.OK_OPTION) { // Daca utilizatorul a apasat OK
-            handleEditProduct(detailPanel, row); // Apeleaza metoda de gestionare a editarii produsului
+            editeazaProdus(detailPanel, row); // Apeleaza metoda de gestionare a editarii produsului
         }
     }
 
     // Metoda pentru gestionarea editarii unui produs
-    private void handleEditProduct(Produs_Panel detailPanel, int row) {
+    private void editeazaProdus(Produs_Panel detailPanel, int row) {
         String pretInitial = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6); // Arata pretul vechi din tabel
         String pretNou = detailPanel.getPretField().getText(); //Arata pretul din fereastra de editare
         String finalPrice = pretInitial.equals(pretNou) ? pretInitial : calculeazaTVA(pretNou); // Daca pretul a fost schimbat, calculeaza pretul cu TVA

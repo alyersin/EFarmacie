@@ -171,57 +171,8 @@ public class Cos_Cumparaturi {
             prescriptiePanel.revalidate(); // Revalideaza panoul
             prescriptiePanel.repaint(); // Reface panoul
 
-            scadeStoc(tabelCos); // Scade stocul dupa printare
         } catch (PrinterException pe) {
             JOptionPane.showMessageDialog(null, "Eroare la printare: " + pe.getMessage(), "Eroare", JOptionPane.ERROR_MESSAGE); // Afisare mesaj de eroare la printare
-        }
-    }
-
-    private void scadeStoc(JTable tabelCos) {
-        List<String> vanzariProduse = new ArrayList<>(); // Creare lista pentru vanzari produse
-        List<Integer> cantitatiVandute = new ArrayList<>(); // Creare lista pentru cantitatiArray vandute
-
-        for (int i = 0; i < tabelCos.getRowCount(); i++) {
-            String numeProdus = (String) tabelCos.getValueAt(i, 0); // Obtine numele produsului din tabel
-            int cantitateVanduta = (int) tabelCos.getValueAt(i, 3); // Obtine cantitatea vanduta din tabel
-            int index = vanzariProduse.indexOf(numeProdus); // Verifica daca produsul este deja in lista
-            if (index == -1) {
-                vanzariProduse.add(numeProdus); // Adauga produsul in lista
-                cantitatiVandute.add(cantitateVanduta); // Adauga cantitatea vanduta in lista
-            } else {
-                int cantitateExistenta = cantitatiVandute.get(index); // Obtine cantitatea existenta
-                cantitatiVandute.set(index, cantitateExistenta + cantitateVanduta); // Actualizeaza cantitatea
-            }
-        }
-
-        List<String[]> stocProduse = new ArrayList<>(); // Lista pentru stoc produse
-        try (BufferedReader reader = new BufferedReader(new FileReader("stoc.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(":"); // Impartire linie in componente
-                if (data.length == 7) {
-                    String numeProdus = data[0];
-                    int stocCurent = Integer.parseInt(data[5]); // Conversie stoc curent la int
-                    int index = vanzariProduse.indexOf(numeProdus);
-                    if (index != -1) {
-                        int cantitateVanduta = cantitatiVandute.get(index);
-                        stocCurent -= cantitateVanduta; // Scade cantitatea vanduta din stoc
-                        data[5] = String.valueOf(stocCurent); // Actualizare stoc in date
-                    }
-                    stocProduse.add(data); // Adaugare produs in lista stoc
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace(); // Tratament exceptii la citirea fisierului
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("stoc.txt"))) {
-            for (String[] data : stocProduse) {
-                writer.write(String.join(":", data)); // Scriere date in fisier
-                writer.newLine(); // Linie noua
-            }
-        } catch (IOException e) {
-            e.printStackTrace(); // Tratament exceptii la scrierea fisierului
         }
     }
 
