@@ -60,6 +60,7 @@ public class Search_Panel extends JPanel {
         return cautaField;
     }
 
+    // Cauta produs in tabel
     public void cautaProduse() {
         String elementCautat = cautaField.getText().trim().toLowerCase();
         int ultimaLinieGasita = 0;

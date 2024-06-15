@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Stoc_Farmacie {
 
-    public void incarcaStoc(DefaultTableModel modelTabelDefault) {
+    public void incarcaStocDinTabel(DefaultTableModel modelTabelDefault) {
         try (BufferedReader br = new BufferedReader(new FileReader("stoc.txt"))) {
             String linie;
             while ((linie = br.readLine()) != null) {

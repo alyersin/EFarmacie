@@ -53,6 +53,7 @@ public class Login_Panel extends JFrame implements ActionListener {
         enterKeyListener(passField);
     }
 
+    // Adauga un listener pentru tasta Enter pe un component
     private void enterKeyListener(JComponent comp) {
         comp.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -62,7 +63,7 @@ public class Login_Panel extends JFrame implements ActionListener {
             }
         });
     }
-    
+
     private void incarcaConturi(String filePath) {
         usersArray = new ArrayList<>();
         passwordsArray = new ArrayList<>();
@@ -80,6 +81,7 @@ public class Login_Panel extends JFrame implements ActionListener {
         }
     }
 
+    // Gestioneaza butonul Login
     public void actionPerformed(ActionEvent ae) {
         String username = userField.getText();
         String password = new String(passField.getPassword());
@@ -93,6 +95,7 @@ public class Login_Panel extends JFrame implements ActionListener {
         }
     }
 
+    // Autentificare user / parola
     private boolean autentificare(String username, String password) {
         for (int i = 0; i < usersArray.size(); i++) {
             if (usersArray.get(i).equals(username) && passwordsArray.get(i).equals(password)) {

@@ -31,11 +31,12 @@ public class MainFrame extends JFrame {
 
         configurareTabel();
         initializarePanels();
-        new Stoc_Farmacie().incarcaStoc(modelTabelDefault);
-        new Table_Listeners(this).addListeners();
+        new Stoc_Farmacie().incarcaStocDinTabel(modelTabelDefault);
+        new Tabel_Listeners(this).adaugaListenersTabel();
         createPopupSterge();
     }
 
+    // Configurare tabel stoc
     private void configurareTabel() {
         modelTabelDefault = new DefaultTableModel() {
             private static final long serialVersionUID = 1L;
@@ -55,6 +56,7 @@ public class MainFrame extends JFrame {
         tabelStoc.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
+    // Initializare panouri de cautare / medic
     private void initializarePanels() {
         searchPanel = new Search_Panel(this);
         medicPanel = new Medic_Panel(this, cosCumparaturi);
@@ -78,10 +80,6 @@ public class MainFrame extends JFrame {
         return cosProduse;
     }
 
-    public JPopupMenu getPopupStergeProdus() {
-        return popupStergeProdus;
-    }
-
     public JTextField getSearchField() {
         return searchPanel.getSearchField();
     }
@@ -95,15 +93,23 @@ public class MainFrame extends JFrame {
         JOptionPane.showMessageDialog(this, message, "Eroare", JOptionPane.ERROR_MESSAGE);
     }
 
+    // Generator JOptionPane
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Informatie", JOptionPane.INFORMATION_MESSAGE);
     }
+
 
     public Cos_Cumparaturi getCosCumparaturi() {
         return cosCumparaturi;
     }
 
+    // Returneaza meniul popup pentru stergerea produselor
+    public JPopupMenu getPopupStergeProdus() {
+        return popupStergeProdus;
+    }
+    
+
     private void createPopupSterge() {
-        popupStergeProdus = new Table_Listeners(this).createPopup();
+        popupStergeProdus = new Tabel_Listeners(this).createPopup();
     }
 }

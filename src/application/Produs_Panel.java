@@ -70,7 +70,7 @@ public class Produs_Panel extends JPanel {
         pretField = new JTextField();
         pretField.setBounds(120, 250, 200, 30);
 
-        JButton adaugaInCosButton = new JButton("Adauga produs in cos");
+        JButton adaugaInCosButton = new JButton("Adauga in cos");
         adaugaInCosButton.setBounds(120, 290, 200, 30);
         adaugaInCosButton.addActionListener(e -> adaugaProdusInCos());
 
@@ -119,17 +119,19 @@ public class Produs_Panel extends JPanel {
         return pretField;
     }
 
+    // Adauga produs in stoc
     public void adaugaProdusStoc() {
         Produs_Panel produsPanel = new Produs_Panel(mainFrame);
         int result = JOptionPane.showConfirmDialog(null, produsPanel, "Adauga Produs",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            handleAdaugaProdus(produsPanel);
+            gestioneazaAdaugaProdus(produsPanel);
         }
     }
 
-    private void handleAdaugaProdus(Produs_Panel produsPanel) {
+    // Gestionarea adaugarii produsului in stoc
+    private void gestioneazaAdaugaProdus(Produs_Panel produsPanel) {
         String calculeazaTVA = calculeazaTVA(produsPanel.getPretField().getText());
 
         mainFrame.getModelTabelDefault().addRow(new Object[]{
@@ -147,6 +149,7 @@ public class Produs_Panel extends JPanel {
                 produsPanel.getModAdminField().getText(), produsPanel.getStocField().getText(), calculeazaTVA);
     }
 
+    // Calculeaza TVA
     private String calculeazaTVA(String pret) {
         try {
             double pretInitial = Double.parseDouble(pret);
@@ -158,6 +161,7 @@ public class Produs_Panel extends JPanel {
         }
     }
 
+    // Salveaza in fisierul stoc
     private void salveazaProdusFisier(String nume, String compozitie, String indicatii, String contraindicatii, String modAdmin, String stoc, String pret) {
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter("stoc.txt", true))) {
             bWriter.write(nume + ":" + compozitie + ":" + indicatii + ":" + contraindicatii + ":" + modAdmin + ":" + stoc + ":" + pret);
@@ -167,6 +171,7 @@ public class Produs_Panel extends JPanel {
         }
     }
 
+    // Deschide panou pentru un produs
     public void deschideDetailPanel(MainFrame mainFrame, int row) {
         Produs_Panel detailPanel = new Produs_Panel(mainFrame,
                 (String) mainFrame.getModelTabelDefault().getValueAt(row, 0),
@@ -186,6 +191,7 @@ public class Produs_Panel extends JPanel {
         }
     }
 
+    // Editare produs din stoc
     private void editeazaProdus(Produs_Panel detailPanel, int row) {
         String pretInitial = (String) mainFrame.getModelTabelDefault().getValueAt(row, 6);
         String pretNou = detailPanel.getPretField().getText();
@@ -202,6 +208,7 @@ public class Produs_Panel extends JPanel {
         new Stoc_Farmacie().salveazaStocInFisier(mainFrame.getModelTabelDefault());
     }
 
+    // Adauga produs in cos
     private void adaugaProdusInCos() {
         String[] produs = new String[]{
                 numeField.getText(),
@@ -213,6 +220,6 @@ public class Produs_Panel extends JPanel {
                 pretField.getText()
         };
         mainFrame.getCosProduse().add(produs);
-        mainFrame.showMessage("Produs adagat in cos");
+        mainFrame.showMessage("Adaugat in cos");
     }
 }

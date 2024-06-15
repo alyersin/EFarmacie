@@ -4,15 +4,16 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Table_Listeners {
+public class Tabel_Listeners {
     private MainFrame mainFrame;
-
-    public Table_Listeners(MainFrame mainFrame) {
+    
+    public Tabel_Listeners(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
     }
 
-    public void addListeners() {
+    public void adaugaListenersTabel() {
         mainFrame.getTabelStoc().addMouseListener(new MouseAdapter() {
+            // Metoda apelata la dublu-click pe un rand din tabel
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     int row = mainFrame.getTabelStoc().getSelectedRow();

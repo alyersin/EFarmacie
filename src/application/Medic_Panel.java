@@ -13,11 +13,11 @@ public class Medic_Panel extends JPanel {
     public Medic_Panel(MainFrame mainFrame, Cos_Cumparaturi cosCumparaturi) {
         this.mainFrame = mainFrame;
         setLayout(null);
-        displayMedicComponents();
+        displayMedicComp();
         setBackground(Color.LIGHT_GRAY);
     }
 
-    private void displayMedicComponents() {
+    private void displayMedicComp() {
         JLabel nrRetetaLabel = generatorLabel("Nr. reteta:", 5, 20);
         nrRetetaField = generatorTextField(75, 20);
 
@@ -60,24 +60,27 @@ public class Medic_Panel extends JPanel {
             bw.write(nrReteta + ":" + nume + ":" + prenume + ":" + codMedic);
             bw.newLine();
             mainFrame.showMessage("Reteta adaugata");
-            clearTextFields(nrRetetaField, numeMedicField, prenumeMedicField, codMedicField);
+            stergeTextFields(nrRetetaField, numeMedicField, prenumeMedicField, codMedicField);
         } catch (IOException e) {
             mainFrame.showError("Eroare la salvarea retetei: " + e.getMessage());
         }
     }
 
-    private void clearTextFields(JTextField... fields) {
+
+    private void stergeTextFields(JTextField... fields) {
         for (JTextField field : fields) {
             field.setText("");
         }
     }
     
+    // Generator JLabel cu pozitie setata
     private JLabel generatorLabel(String text, int x, int y) {
         JLabel label = new JLabel(text);
         label.setBounds(x, y, 100, 30);
         return label;
     }
 
+ // Generator JTextField cu pozitie setata
     private JTextField generatorTextField(int x, int y) {
         JTextField textField = new JTextField(15);
         textField.setBounds(x, y, 200, 30);
