@@ -2,14 +2,14 @@
 This project is a **Java desktop application** developed as part of Computer Science studies. The application provides a streamlined solution for managing pharmaceutical inventory, including product stock, shopping cart management, and user login functionalities.
 
 ## Table of Contents
-- About the Project  
-- Features  
-- Installation  
-- Usage  
-- Technologies Used  
-- Future Development  
-- Acknowledgements
-- 
+- [About the Project]($About-the-Project)  
+- [Features]($Features)  
+- [Installation](#Installation)  
+- [Usage](#Usage)  
+- [Technologies Used](#Technologies-Used)  
+- [Future Development](#Future-Development)  
+- [Acknowledgements](#Acknowledgements)
+
 ## About the Project
 The **Pharmacy Management Application** is designed to help manage pharmacy stock efficiently. It includes modules for searching products, managing inventory levels, processing shopping cart actions, and supporting user authentication. This project serves as a practical learning tool for developing user-friendly interfaces and implementing complex data management features in Java.
 
