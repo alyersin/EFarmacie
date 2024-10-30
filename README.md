@@ -49,5 +49,5 @@ Potential features include:
 - Role-based access controls for different types of users.
 
 ## Acknowledgements
-Instructor: 
+Instructor:   
 Course: Object Oriented Programming
