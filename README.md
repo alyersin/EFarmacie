@@ -1,7 +1,7 @@
 # Pharmacy Management Application
 This project is a **Java desktop application** developed as part of Computer Science studies. The application provides a streamlined solution for managing pharmaceutical inventory, including product stock, shopping cart management, and user login functionalities.
 
-<img src="./public/screenshot.jpg" alt="Screenshot of EFarmacie" width="500"/>
+<img src="screenshot.jpg" alt="Screenshot of EFarmacie" width="500"/>
 
 ## Table of Contents
 - [About the Project]($About-the-Project)  
